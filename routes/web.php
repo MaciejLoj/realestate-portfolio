@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); // welcome.blade.php z resources
 });
+Route::get('/nieruchomosci', 'RealEstateController@showall');
