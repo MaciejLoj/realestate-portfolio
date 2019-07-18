@@ -12,4 +12,6 @@ class RealEstateController extends Controller
     {
         return view('realestate');
     }
+
+    
 }

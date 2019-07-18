@@ -26,7 +26,22 @@
 </nav>
 
         <div class="container my-4">
+            @if (Route::has('login'))
+                <div class="flex-center position-ref full-height">
+                        @auth
+                            <a href="{{ url('/home') }}">Home</a>
+                        @else
+                            <a href="{{ route('login') }}">Logowanie</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}">Rejestracja</a>
+                            @endif
+
+                        @endauth
+                </div>
+            @endif
+
             @yield('content')
+
         </div>
 
         <script src="{{ url('js/bootstrap.min.js')}}"></script>
