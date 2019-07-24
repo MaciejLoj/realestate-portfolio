@@ -1,49 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Nieruchomosci</title>
-        <link rel="stylesheet" href="{{ url('css/bootstrap.min.css')}}"
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{{ url('/nieruchomosci') }}">Nieruchomosci</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+@extends('layouts.app')
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+@section('content')
+    <div class="container">
+        <div class="row">
 
-        <div class="container my-4">
-            @if (Route::has('login'))
-                <div class="flex-center position-ref full-height">
-                        @auth
-                            <a href="{{ url('/home') }}">Home</a>
-                        @else
-                            <a href="{{ route('login') }}">Logowanie</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}">Rejestracja</a>
-                            @endif
+            <div class="col-3 p-5">
+                <img src="/images/logo_nieruchomosci.jpg" class="rounded-circle w-100 h-100">
+            </div>
 
-                        @endauth
+            <div class="col-9 p-5">
+                <div class="d-flex justify-content-start"><h1>Nieruchomosci</h1></div>
+                <div class="d-flex justify-content-start">
+                    <div class="pr-4">Katowice</div>
+                    <div class="pr-4">Chorzow</div>
+                    <div class="pr-4">Bytom</div>
                 </div>
-            @endif
-
-            @yield('content')
+            </div>
 
         </div>
 
-        <script src="{{ url('js/bootstrap.min.js')}}"></script>
-    </body>
-</html>
+        <div class="row">
+
+            <div class="col-3">
+                heh
+            </div>
+
+            <div class="col-9">
+                pech
+            </div>
+
+        </div>
+
+    </div>
+@endsection

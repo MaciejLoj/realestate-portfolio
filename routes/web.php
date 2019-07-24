@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome'); // welcome.blade.php z resources
+    return view('welcome');
 });
 Route::get('/nieruchomosci', 'RealEstateController@showall');
 
