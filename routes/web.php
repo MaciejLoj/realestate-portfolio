@@ -11,11 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/nieruchomosci', 'RealEstateController@showall');
+Route::get('/', 'RealEstateController@start')->name('homepage');
+
+Route::get('/nieruchomosci', 'RealEstateController@showall')->name('realestates');
+
+Route::get('/home', 'RealEstateController@home')->name('home');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

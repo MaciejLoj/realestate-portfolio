@@ -9,11 +9,11 @@
             </div>
 
             <div class="col-9 p-5">
-                <div class="d-flex justify-content-start"><h1>Slaskie Nieruchomosci</h1></div>
+                <div class="d-flex justify-content-start"><h1>{{$title}}</h1></div>
                 <div class="d-flex justify-content-start">
-                    <div class="pr-4">Katowice</div>
-                    <div class="pr-4">Chorzow</div>
-                    <div class="pr-4">Bytom</div>
+                    @foreach ($cities as $city)
+                        <div class="pr-4">{{$city}}</div>
+                    @endforeach
                 </div>
                 <div class="pt-3">
                     <a href="">www.nieruchomosci.pl</a>

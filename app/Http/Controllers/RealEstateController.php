@@ -10,8 +10,22 @@ class RealEstateController extends Controller
 
     public function showall()
     {
-        return view('realestate');
+        $data = array(
+            'title' => 'Slaskie Nieruchomosci',
+            'cities' => ['Bytom', 'Chorzow', 'Katowice']
+        );
+
+        return view('pages.realestates')->with($data);
     }
 
-    
+    public function home()
+    {
+        return view('pages.homepage');
+    }
+
+    public function start()
+    {
+        return view('pages.welcome');
+    }
+
 }
