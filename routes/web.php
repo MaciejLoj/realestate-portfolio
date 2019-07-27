@@ -12,9 +12,9 @@
 */
 
 Route::get('/', 'RealEstateController@start')->name('homepage');
-
 Route::get('/nieruchomosci', 'RealEstateController@showall')->name('realestates');
-
 Route::get('/home', 'RealEstateController@home')->name('home');
+
+Route::resource('posts', 'PostsController');
 
 Auth::routes();
