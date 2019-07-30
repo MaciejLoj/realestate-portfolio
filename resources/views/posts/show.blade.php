@@ -6,14 +6,17 @@
 
         @if ($post)
 
-            <div class="btn btn-dark">
-                <a href="/posts">Powrot do ogloszen</a>
+            <div class="btn btn-light">
+                <a href="/posts">Powrot do listy ogloszen</a>
             </div>
             <div class="jumbotron">
                 <p>{{$post->title}}</p>
-                <hr>
                 <small>Data dodania ogloszenia {{$post->created_at}}</small>
+                <hr>
             </div>
+            <a href="/posts/{{$post->id}}/edit" class="btn btn-success">
+                Edytuj Ogloszenie
+            </a>
 
         @else
             <p>Ogloszenie jest nieaktualne!!</p>

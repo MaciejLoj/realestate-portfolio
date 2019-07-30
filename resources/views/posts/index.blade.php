@@ -2,8 +2,11 @@
 
 @section('content')
 
-    <div class="container text-center">
-        <p>Nasze ogloszenia</p>
+    <div class="container">
+        <div class="pb-4">
+            Nasze ogloszenia
+            <a href="/posts/create" class="btn btn-success">Dodaj ogloszenie</a>
+        </div>
 
         @if ($posts)
 
