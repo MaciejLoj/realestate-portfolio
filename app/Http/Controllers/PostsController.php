@@ -53,6 +53,8 @@ class PostsController extends Controller
         // do title obiektu zostanie przypisana tresc z formularza o name=title
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        // currently logged in user will be saved
+        $post->user_id = auth()->user()->id;
         $post->save();
 
         return redirect('/posts')->with('success', 'Dodano ogloszenie!');
@@ -117,6 +119,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $post = Post::find($id);
+        $post-> delete;
+        return redirect('/posts')->with('success', 'Ogloszenie zostalo usuniete');
 }
