@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', 'RealEstateController@start')->name('homepage');
-Route::get('/nieruchomosci', 'RealEstateController@showall')->name('realestates');
-Route::get('/home', 'RealEstateController@home')->name('home');
+Route::get('/', 'RealEstateController@start');
+Route::get('/nieruchomosci', 'RealEstateController@showall');
+Route::get('/home', 'RealEstateController@home');
+Route::get('/mojeogloszenia', 'RealEstateController@myposts');
 
 Route::resource('posts', 'PostsController');
 

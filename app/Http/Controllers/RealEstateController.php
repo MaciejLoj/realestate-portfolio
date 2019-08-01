@@ -28,4 +28,8 @@ class RealEstateController extends Controller
         return view('pages.welcome');
     }
 
+    public function myposts()
+    {
+        return view('pages.myposts');
+    }
 }
