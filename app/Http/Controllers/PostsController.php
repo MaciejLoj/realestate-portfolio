@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
 use DB;
 
 class PostsController extends Controller
 {
+
+    public funtion __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,8 +60,8 @@ class PostsController extends Controller
         // do title obiektu zostanie przypisana tresc z formularza o name=title
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        // currently logged in user will be saved
-        $post->user_id = auth()->user()->id;
+        // currently logged in users is will be given
+        $post->user_id = Auth::id();
         $post->save();
 
         return redirect('/posts')->with('success', 'Dodano ogloszenie!');

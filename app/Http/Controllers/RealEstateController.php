@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RealEstateController extends Controller
 {
@@ -30,6 +31,15 @@ class RealEstateController extends Controller
 
     public function myposts()
     {
-        return view('pages.myposts');
+        // if (Auth::guest())
+        // {
+        //     return redirect('/login');
+        //
+        // } else{
+            $user_id = Auth::id();
+            $user = User::find($user_id);
+            return view('pages.myposts')->with('posts', $user->posts);
+        // }
+
     }
 }

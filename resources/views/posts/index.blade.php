@@ -13,7 +13,8 @@
             @foreach($posts as $post)
                 <div class="jumbotron">
                     <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
-                    <small>{{$post->created_at}}</small>
+                    <p><small>{{$post->created_at}}</small></p>
+                    <small>Utworzone przez uzytkownika o id = {{$post->user_id}}</small>
                 </div>
             @endforeach
 
