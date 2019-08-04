@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class RealEstateController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
+    }
+
     public function showall()
     {
         $data = array(
