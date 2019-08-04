@@ -11,7 +11,7 @@ use DB;
 class PostsController extends Controller
 {
 
-    public funtion __construct()
+    public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
@@ -91,7 +91,13 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('posts.edit')->with('post', $post);
+
+        if(Auth::id()==$post->user_id)
+        {
+            return view('posts.edit')->with('post', $post);
+        } else {
+            return redirect('/posts')->with('error', 'Dostep nie jest mozliwy');
+        }
     }
 
     /**
@@ -127,7 +133,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        $post-> delete;
+        $post-> delete();
         return redirect('/posts')->with('success', 'Ogloszenie zostalo usuniete');
     }
 }

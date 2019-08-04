@@ -14,7 +14,7 @@
                 <div class="jumbotron">
                     <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
                     <p><small>{{$post->created_at}}</small></p>
-                    <small>Utworzone przez uzytkownika o id = {{$post->user_id}}</small>
+                    <small>Utworzone przez uzytkownika {{$post->user->name}}</small>
                 </div>
             @endforeach
 
