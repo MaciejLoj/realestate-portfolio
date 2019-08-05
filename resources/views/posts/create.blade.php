@@ -5,7 +5,7 @@
     <div class="container text-center">
         <p>Dodaj ogloszenie</p>
 
-        {{ Form::open(array('action' => 'PostsController@store', 'method' => 'POST')) }}
+        {{ Form::open(array('action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data')) }}
         	<div class="form-group">
                 <!-- title to name, Title to naglowek -->
                 {{ Form::label('title', 'Tytul ogloszenia') }}
@@ -16,6 +16,9 @@
             <div class="form-group">
                 {{ Form::label('body', 'Tresc ogloszenia') }}
                 {{ Form::textarea('body', '', ['class' => 'form-control', 'placeholder' => 'Tresc' ] )}}
+            </div>
+            <div class="form-group">
+                {{ Form::file('cover_image')}}
             </div>
             {{ Form::submit('Dodaj ogloszenie', ['class' => 'btn btn-primary']) }}
         {{ Form::close() }}

@@ -50,12 +50,20 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        // przechowywane w db
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
+        // jesli dodano plik do formularza (pole - 'cover_image')
+        if($request->hasFile('cover_image')){
+            $request->file('cover_image')->store('/public/images');
+        } else {
+            echo "Blad";
+        }
 
-        // Create POST, mozemy uzyc Post bo dalismy use Post u gory
+        // Create POST, mozemy uzyc Post - dalismy use Post u gory
         $post = new Post;
         // do title obiektu zostanie przypisana tresc z formularza o name=title
         $post->title = $request->input('title');
