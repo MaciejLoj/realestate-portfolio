@@ -52,28 +52,37 @@ class PostsController extends Controller
     {
         // przechowywane w db
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required', // 'required|email'
+            'body' => 'required', // 'required|numeric'
             'cover_image' => 'image|nullable|max:1999'
         ]);
         // jesli dodano plik do formularza (pole - 'cover_image')
         if($request->hasFile('cover_image')){
-            $request->file('cover_image')->store('/public/images');
+            // zmiennej przypisuje dokladna nazwe pliku dodanego przez formularz o name = 'cover_image'
+            $filenameWithExtension = $request->file('cover_image')->getClientOriginalName();
+            // sluzy do pobierania czesci pathu (cala, baza, samo rozszerzenie itp)
+            $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $path=$request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
         } else {
-            echo "Blad";
+            $fileNameToStore = 'noimage.jpg';
         }
 
         // Create POST, mozemy uzyc Post - dalismy use Post u gory
         $post = new Post;
         // do title obiektu zostanie przypisana tresc z formularza o name=title
-        $post->title = $request->input('title');
+        $post->title = $request->input('title'); // Input::get('title');
         $post->body = $request->input('body');
         // currently logged in users is will be given
         $post->user_id = Auth::id();
+        $post->cover_image = $fileNameToStore;
         $post->save();
 
         return redirect('/posts')->with('success', 'Dodano ogloszenie!');
-
+        // Session::flash('message' , 'Successfully created ogloszenie');
+        // return Redirect::to('/posts');
 
     }
 

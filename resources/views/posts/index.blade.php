@@ -12,9 +12,15 @@
 
             @foreach($posts as $post)
                 <div class="jumbotron">
-                    <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
-                    <p><small>{{$post->created_at}}</small></p>
-                    <small>Utworzone przez uzytkownika {{$post->user->name}}</small>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="w-100" src="/storage/cover_images/{{$post->cover_image}}">
+                        </div>
+                        <div class="col-md-8">
+                            <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
+                            <small>Utworzone {{$post->created_at}} przez {{$post->user_id}}</small>
+                        </div>
+                    </div>
                 </div>
             @endforeach
 
@@ -22,8 +28,7 @@
         @else
             <p>Brak ogłoszeń w bazie!</p>
         @endif
-
-
+        
     </div>
 
 @endsection
