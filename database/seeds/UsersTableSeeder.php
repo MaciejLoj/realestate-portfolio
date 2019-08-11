@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-use App\Role;
+use App\Roles;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,8 +14,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // ->first, wez pierwszego napotkanego user o name = User
-        // ->get, wez wszystkich 
-        $role_user = Role::where('name', 'User')->first();
+        // ->get, wez wszystkich
+        $role_user = Roles::where('name', 'User')->first();
+        $role_admin = Roles::where('name', 'Admin')->first();
+        $role_moderator = Roles::where('name', 'Moderator')->first();
 
         $faker = \Faker\Factory::create();
 
@@ -28,9 +30,11 @@ class UsersTableSeeder extends Seeder
         $user->roles()->attach($role_user);
 
         $admin = new User();
-        $admin->name = 'Administrator';
+        $admin->name = $faker->name;
         $admin->email = $faker->email;
         $admin->password = bcrypt('admin');
+        $admin->save();
+        $admin->roles()->attach($role_admin);
 
         }
     }

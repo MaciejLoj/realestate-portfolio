@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 // Tworze nowa tabele w bazie danych - Tabela Roles - beda tam role:
 // Admin, moderator i user
 
@@ -14,7 +15,7 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         $role_admin = new \App\Roles();
         $role_admin->name = 'Admin';
@@ -24,7 +25,7 @@ class RoleTableSeeder extends Seeder
         $role_moderator = new \App\Roles();
         $role_moderator->name = 'Moderator';
         $role_moderator->description = 'A moderator';
-        $role->save();
+        $role_moderator->save();
 
         $role_user = new \App\Roles();
         $role_user->name = 'User';
