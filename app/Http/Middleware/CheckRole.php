@@ -15,10 +15,20 @@ class CheckRole
      */
     public function handle($request, Closure $next)
     {
-        echo "Siema pomaranczowe";
+        // jesli user nie jest zalogowany
+        if ($request->user() === null) {
+            return response("Insufficient permission", 401);
+        }
+        $actions = $request->route()->getAction();
+        $roles = isset($actions['roles']) ? $actions['roles'] : null;
+
+        if ($reuest->user()->hasAnyRole($roles) || !roles) {
+            return $next($request);
+        }
+        return response("Insufficient permissions", 401);
+
         // if (! $request->user()->hasRole($role)) {
         //     return redirect('home');
         // }
-        return $next($request);
     }
 }

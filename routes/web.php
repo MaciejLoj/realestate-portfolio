@@ -15,7 +15,14 @@ Route::get('/', 'RealEstateController@start');
 Route::get('/nieruchomosci', 'RealEstateController@showall');
 Route::get('/home', 'RealEstateController@home');
 Route::get('/mojeogloszenia', 'RealEstateController@myposts');
+Route::get('/uzytkownicy', 'HomeController@postAdminRoles');
 
+
+// Route::group([
+    //'middleware'=>'roles', roles to nazwa middleware'a w Kernel.php
+    //'roles' => ['Admin', 'Moderator']
+
+//])
 Route::resource('posts', 'PostsController');
 
 Auth::routes();
