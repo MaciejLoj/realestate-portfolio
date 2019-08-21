@@ -15,14 +15,25 @@ Route::get('/', 'RealEstateController@start');
 Route::get('/nieruchomosci', 'RealEstateController@showall');
 Route::get('/home', 'RealEstateController@home');
 Route::get('/mojeogloszenia', 'RealEstateController@myposts');
-Route::get('/uzytkownicy', 'HomeController@postAdminRoles');
 
+Route::group([
+    'middleware'=>'roles',
+    'roles'=>['Admin','Moderator']
+], function() {
 
-// Route::group([
-    //'middleware'=>'roles', roles to nazwa middleware'a w Kernel.php
-    //'roles' => ['Admin', 'Moderator']
+    Route::get('/uzytkownicy', 'HomeController@all_users');
+    Route::post('/uzytkownicy', 'HomeController@postAdminRoles');
 
-//])
-Route::resource('posts', 'PostsController');
+});
+
+//'middleware'=>'roles' pochodzi z-> Kernel.php->CheckRole.php
+// roles => [] ustawiamy tutaj jako parametry i leca one potem do middleware->roles
+Route::group([
+    'middleware'=>'roles',
+    'roles' => ['Admin', 'Moderator']
+], function() {
+
+    Route::resource('posts', 'PostsController')
+});
 
 Auth::routes();

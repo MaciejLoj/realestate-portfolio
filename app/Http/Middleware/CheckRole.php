@@ -13,22 +13,31 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
+    // public function handle($request, Closure $next)
+    // {
+    //     // jesli user nie jest zalogowany
+    //     if ($request->user() === null) {
+    //         return response("Insufficient permission", 401);
+    //     }
+    //     $actions = $request->route()->getAction();
+    //     $roles = isset($actions['roles']) ? $actions['roles'] : null;
+    //
+    //     if ($request->user()->hasAnyRole($roles) || !roles) {
+    //         return $next($request);
+    //     }
+    //     return response("Insufficient permissions", 401);
+    //
+    //     if (! $request->user()->hasRole($role)) {
+    //         return redirect('home');
+    //     }
+    // }
+
     public function handle($request, Closure $next)
     {
-        // jesli user nie jest zalogowany
-        if ($request->user() === null) {
-            return response("Insufficient permission", 401);
-        }
-        $actions = $request->route()->getAction();
-        $roles = isset($actions['roles']) ? $actions['roles'] : null;
+        if ($request->user() == null){
+            redirect('/login');
 
-        if ($reuest->user()->hasAnyRole($roles) || !roles) {
-            return $next($request);
         }
-        return response("Insufficient permissions", 401);
-
-        // if (! $request->user()->hasRole($role)) {
-        //     return redirect('home');
-        // }
+        return $next(request);
     }
 }

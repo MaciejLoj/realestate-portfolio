@@ -18,11 +18,9 @@
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        {{-- wstawic nowy controller --}}
                         {{ Form::open(array('action' => 'HomeController@postAdminRoles', 'method' => 'POST')) }}
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            {{-- naprawic checkboxa --}}
                             <td class="pl-3">{{Form::checkbox("role_user", null, $user->hasRole('User'))}}</td>
                             <td class="pl-4">{{Form::checkbox("role_admin", null, $user->hasRole('Admin'))}}</td>
                             <td class="pl-4">{{Form::checkbox("role_moderator", null, $user->hasRole('Moderator'))}}</td>

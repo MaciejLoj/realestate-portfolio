@@ -33,7 +33,7 @@ class HomeController extends Controller
      public function postAdminRoles(Request $request)
      {
          // $request['email'] ???
-         $user = User::where('email', $request['email'])->first();
+         $user = User::where('email', $request['email'])->firstOrFail();
          $user->roles()->detach();
          if($request['role_user']){
              $user->roles()->attach(Role::where('name','User'));
