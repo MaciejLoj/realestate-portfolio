@@ -31,9 +31,10 @@ Route::group([
 Route::group([
     'middleware'=>'roles',
     'roles' => ['Admin', 'Moderator']
+
 ], function() {
 
-    Route::resource('posts', 'PostsController')
+    Route::resource('posts', 'PostsController');
 });
 
 Auth::routes();
