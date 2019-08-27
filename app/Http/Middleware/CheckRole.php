@@ -28,8 +28,9 @@ class CheckRole
 
         // jesli user ma role jedna z rol uprawnionych do danej strony lub  konkretne role nie istnieja to pozwol na dostep
         if ($request->user()->hasAnyRole($roles)){
-            return $next($request):
+            return $next($request);
         }
-        return $next(request);
+        return response("Insufficient permissions", 401);
+        //
     }
 }

@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany('App\Roles', 'user_role', 'roles_id', 'user_id');
+        return $this->belongsToMany('App\Roles', 'user_role', 'user_id', 'roles_id');
     }
 
     // skad ten parametr $roles?

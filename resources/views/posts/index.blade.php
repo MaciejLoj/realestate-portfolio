@@ -28,7 +28,7 @@
         @else
             <p>Brak ogłoszeń w bazie!</p>
         @endif
-        
+
     </div>
 
 @endsection

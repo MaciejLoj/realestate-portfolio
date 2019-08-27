@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Requests\PostsRequest;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
@@ -23,7 +23,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //$posts = Post:all();
+        // $posts = Post::all();
         // return Post::where('title','Post Two')->get();
         //$posts = DB::select('SELECT * FROM posts'); --> using sql
         //$posts = Post::orderBy('created_at', 'desc')->take(1)->get(); shows just 1 result
@@ -48,14 +48,9 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostsRequest $request)
     {
-        // przechowywane w db
-        $this->validate($request, [
-            'title' => 'required', // 'required|email'
-            'body' => 'required', // 'required|numeric'
-            'cover_image' => 'image|nullable|max:1999'
-        ]);
+
         // jesli dodano plik do formularza (pole - 'cover_image')
         if($request->hasFile('cover_image')){
             // zmiennej przypisuje dokladna nazwe pliku dodanego przez formularz o name = 'cover_image'

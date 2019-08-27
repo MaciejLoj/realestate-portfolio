@@ -11,30 +11,23 @@
 |
 */
 
-Route::get('/', 'RealEstateController@start');
-Route::get('/nieruchomosci', 'RealEstateController@showall');
-Route::get('/home', 'RealEstateController@home');
-Route::get('/mojeogloszenia', 'RealEstateController@myposts');
+// Route dostepne dla wszystkich
 
-Route::group([
-    'middleware'=>'roles',
-    'roles'=>['Admin','Moderator']
-], function() {
-
-    Route::get('/uzytkownicy', 'HomeController@all_users');
-    Route::post('/uzytkownicy', 'HomeController@postAdminRoles');
-
+Route::group(['middleware'=>'roles','roles'=>['User','Admin','Moderator']], function () {
+    Route::get('/', 'RealEstateController@start');
+    Route::get('/nieruchomosci', 'RealEstateController@showall');
+    Route::get('/home', 'RealEstateController@home');
+    Route::get('/mojeogloszenia', 'RealEstateController@myposts');
+// do dodania wszystkie url z posts - create, id itp
+    Route::get('/ogloszenia', 'PostsController@index');
+    Route::get('/ogloszenia/dodaj', 'PostsController@create');
 });
 
-//'middleware'=>'roles' pochodzi z-> Kernel.php->CheckRole.php
-// roles => [] ustawiamy tutaj jako parametry i leca one potem do middleware->roles
-Route::group([
-    'middleware'=>'roles',
-    'roles' => ['Admin', 'Moderator']
 
-], function() {
-
-    Route::resource('posts', 'PostsController');
+// Route dostepne tylko dla Admina i Moderatora
+Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
+    Route::get('/uzytkownicy', 'HomeController@all_users');
+    Route::post('/uzytkownicy', 'HomeController@postAdminRoles');
 });
 
 Auth::routes();
