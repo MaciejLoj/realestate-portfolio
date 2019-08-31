@@ -13,14 +13,14 @@
 
 Route::get('/', 'RealEstateController@start'); // OK
 Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
-Route::get('/mojeogloszenia', 'RealEstateController@myposts');
+Route::get('/mojeogloszenia', 'RealEstateController@myposts'); // OK
 Route::get('/ogloszenia', 'PostsController@index');
 Route::get('/ogloszenia/dodaj', 'PostsController@create');
 Route::post('/ogloszenia', 'PostsController@store');
-Route::get('/ogloszenia/{ogloszenie}'); // pokaz ogloszenie
-Route::get('/ogloszenia/{ogloszenie}/edytuj'); // widok zmiany ogloszenia
-Route::put('/ogloszenia/{ogloszenie}'); // wyslij zmiane do bazy
-Route::delete('/ogloszenia/{ogloszenie}'); // usun ogloszenie
+Route::get('/ogloszenia/{ogloszenie}', 'PostsController@show'); // pokaz ogloszenie
+Route::get('/ogloszenia/{ogloszenie}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
+Route::put('/ogloszenia/{ogloszenie}', 'PostsController@update'); // wyslij zmiane do bazy
+Route::delete('/ogloszenia/{ogloszenie}', 'PostsController@destroy'); //
 // });
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {

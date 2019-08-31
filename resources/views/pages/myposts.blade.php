@@ -4,7 +4,7 @@
 
     <div class="container">
         <h5 class="jumbotron text-center">Moje ogloszenia</h5>
-        <a href="/posts/create" class="btn btn-primary">Dodaj ogloszenie</a>
+        <a href="/ogloszenia/dodaj" class="btn btn-primary">Dodaj ogloszenie</a>
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -16,7 +16,7 @@
             @foreach($posts as $post)
             <tr>
                 <td>{{$post->title}}</td>
-                <td><a href="/posts/{{$post->id}}/edit" class="btn btn-primary">Edytuj</a></td>
+                <td><a href="/ogloszenia/{{$post->id}}/edytuj" class="btn btn-primary">Edytuj</a></td>
                 <td>
                     {{Form::open(['action'=>['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
                         {{Form::hidden('_method', 'DELETE')}}

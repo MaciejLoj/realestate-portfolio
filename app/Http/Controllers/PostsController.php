@@ -29,6 +29,7 @@ class PostsController extends Controller
         //$posts = Post::orderBy('created_at', 'desc')->take(1)->get(); shows just 1 result
         //$posts = Post::orderBy('created_at', 'desc')->get();
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        // wszystkie posty uszeregowane data dodania od najnowszego
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -109,7 +110,7 @@ class PostsController extends Controller
         {
             return view('posts.edit')->with('post', $post);
         } else {
-            return redirect('/posts')->with('error', 'Dostep nie jest mozliwy');
+            return redirect('/ogloszenia')->with('error', 'Dostep nie jest mozliwy');
         }
     }
 
@@ -143,10 +144,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ogloszenie)
     {
-        $post = Post::find($id);
+        $post = Post::find($ogloszenie);
         $post-> delete();
-        return redirect('/posts')->with('success', 'Ogloszenie zostalo usuniete');
+        return redirect('/ogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
     }
 }

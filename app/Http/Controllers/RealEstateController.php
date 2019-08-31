@@ -11,7 +11,8 @@ class RealEstateController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
+        // kiedy uruchamia sie Controller __construct dziala i uruchamia middleware
+        // $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
     }
 
     public function showall()
@@ -31,15 +32,19 @@ class RealEstateController extends Controller
 
     public function myposts()
     {
-        // if (Auth::guest())
-        // {
-        //     return redirect('/login');
-        //
-        // } else{
+        // spr czy odwiedzajacy jest zalogowany. Jest tak to:
+        if(Auth::id()){
+            // id zalogowanego uzytkownika
             $user_id = Auth::id();
+            // znajdz uzytkownika po danym id (id zalogowanego uzytkownika)
             $user = User::find($user_id);
+            // user->posts to metoda z modelu User (hasMany). User ma wiele postow
+            // W modelu Posts (belongsTo).
             return view('pages.myposts')->with('posts', $user->posts);
-        // }
+        // jesli nie jest przekieruj na login
+        }else {
+            return redirect('/login');
+        }
 
     }
 }
