@@ -5,16 +5,15 @@
     {{-- podpinamy wyswietlanie bledow. Jesli jakis sie pojawi przy dodawaniu posta to zostaje on zapisany
     w pamieci a nastepnie moze byc wyswietlony tutaj ponizej --}}
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-                <li>
             </ul>
         </div>
-    @endif
+    @endif --}}
 
     <div class="container text-center">
         <p>Dodaj ogloszenie</p>

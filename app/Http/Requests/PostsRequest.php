@@ -13,7 +13,7 @@ class PostsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,12 +21,24 @@ class PostsRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
         return [
             'title' => 'required', // 'required|email'
             'body' => 'required', // 'required|numeric'
             'cover_image' => 'image|nullable|max:1999',
         ];
     }
+
+    // funkcja do personalizowania wiadomosci
+    public function messages(){
+        return [
+            'title.required' => 'Pole tytul jest wymagane',
+            'body.required' => 'Pole jest wymagane',
+
+        ];
+
+    }
+
+
+
 }

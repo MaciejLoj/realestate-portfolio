@@ -24,11 +24,6 @@ class RealEstateController extends Controller
         return view('pages.realestates')->with($data);
     }
 
-    public function home()
-    {
-        return view('pages.homepage');
-    }
-
     public function start()
     {
         return view('pages.welcome');

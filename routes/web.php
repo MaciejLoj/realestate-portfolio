@@ -11,23 +11,22 @@
 |
 */
 
-// Route dostepne dla wszystkich
+Route::get('/', 'RealEstateController@start'); // OK
+Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
+Route::get('/mojeogloszenia', 'RealEstateController@myposts');
+Route::get('/ogloszenia', 'PostsController@index');
+Route::get('/ogloszenia/dodaj', 'PostsController@create');
+Route::post('/ogloszenia', 'PostsController@store');
+Route::get('/ogloszenia/{ogloszenie}'); // pokaz ogloszenie
+Route::get('/ogloszenia/{ogloszenie}/edytuj'); // widok zmiany ogloszenia
+Route::put('/ogloszenia/{ogloszenie}'); // wyslij zmiane do bazy
+Route::delete('/ogloszenia/{ogloszenie}'); // usun ogloszenie
+// });
 
-Route::group(['middleware'=>'roles','roles'=>['User','Admin','Moderator']], function () {
-    Route::get('/', 'RealEstateController@start');
-    Route::get('/nieruchomosci', 'RealEstateController@showall');
-    Route::get('/home', 'RealEstateController@home');
-    Route::get('/mojeogloszenia', 'RealEstateController@myposts');
-// do dodania wszystkie url z posts - create, id itp
-    Route::get('/ogloszenia', 'PostsController@index');
-    Route::get('/ogloszenia/dodaj', 'PostsController@create');
-});
-
-
-// Route dostepne tylko dla Admina i Moderatora
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
     Route::get('/uzytkownicy', 'HomeController@all_users');
     Route::post('/uzytkownicy', 'HomeController@postAdminRoles');
+    // put/patch zamiast post?
 });
 
 Auth::routes();

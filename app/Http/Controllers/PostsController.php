@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Requests\PostsRequest;
+use App\Http\Requests\PostsRequest;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
@@ -75,9 +75,10 @@ class PostsController extends Controller
         $post->cover_image = $fileNameToStore;
         $post->save();
 
-        return redirect('/posts')->with('success', 'Dodano ogloszenie!');
+        return redirect('/ogloszenia')->with('success', 'Dodano ogloszenie!');
         // Session::flash('message' , 'Successfully created ogloszenie');
         // return Redirect::to('/posts');
+        //Post::create($request->all());, return redirect()->route('');
 
     }
 

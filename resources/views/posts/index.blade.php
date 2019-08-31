@@ -5,7 +5,7 @@
     <div class="container">
         <div class="pb-4">
             Nasze ogloszenia
-            <a href="/posts/create" class="btn btn-success">Dodaj ogloszenie</a>
+            <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj ogloszenie</a>
         </div>
 
         @if ($posts)
@@ -17,7 +17,7 @@
                             <img class="w-100" src="/storage/cover_images/{{$post->cover_image}}">
                         </div>
                         <div class="col-md-8">
-                            <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
+                            <h3><a href="/ogloszenia/{{$post->id}}">{{$post->title}}</a></h3>
                             <small>Utworzone {{$post->created_at}} przez {{$post->user_id}}</small>
                         </div>
                     </div>
