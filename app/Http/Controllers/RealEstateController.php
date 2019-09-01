@@ -11,8 +11,10 @@ class RealEstateController extends Controller
 
     public function __construct()
     {
-        // kiedy uruchamia sie Controller __construct dziala i uruchamia middleware
-        // $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
+        /* kiedy uruchamia sie Controller __construct dziala i uruchamia middleware, mamy middleware
+        w routingu wiec tego nie potrzebujemy.
+        $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
+        */
     }
 
     public function showall()
@@ -21,7 +23,6 @@ class RealEstateController extends Controller
             'title' => 'Slaskie Nieruchomosci',
             'cities' => ['Bytom', 'Chorzow', 'Katowice']
         );
-
         return view('pages.realestates')->with($data);
     }
 

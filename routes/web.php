@@ -17,15 +17,15 @@ Route::get('/mojeogloszenia', 'RealEstateController@myposts'); // OK
 Route::get('/ogloszenia', 'PostsController@index');
 Route::get('/ogloszenia/dodaj', 'PostsController@create');
 Route::post('/ogloszenia', 'PostsController@store');
-Route::get('/ogloszenia/{ogloszenie}', 'PostsController@show'); // pokaz ogloszenie
-Route::get('/ogloszenia/{ogloszenie}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
-Route::put('/ogloszenia/{ogloszenie}', 'PostsController@update'); // wyslij zmiane do bazy
-Route::delete('/ogloszenia/{ogloszenie}', 'PostsController@destroy'); //
+Route::get('/ogloszenia/{id}', 'PostsController@show'); // pokaz ogloszenie
+Route::get('/ogloszenia/{id}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
+Route::put('/ogloszenia/{id}', 'PostsController@update'); // wyslij zmiane do bazy
+Route::delete('/ogloszenia/{id}', 'PostsController@destroy'); // OK
 // });
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
-    Route::get('/uzytkownicy', 'HomeController@all_users');
-    Route::post('/uzytkownicy', 'HomeController@postAdminRoles');
+    Route::get('/uzytkownicy', 'AdminController@all_users');
+    Route::post('/uzytkownicy', 'AdminController@postAdminRoles');
     // put/patch zamiast post?
 });
 

@@ -13,7 +13,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        // $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -144,10 +144,12 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($ogloszenie)
+
+     //$id to parametr ktory zostal przeslany z formularza
+    public function destroy($id)
     {
-        $post = Post::find($ogloszenie);
+        $post = Post::find($id);
         $post-> delete();
-        return redirect('/ogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
+        return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
     }
 }

@@ -15,7 +15,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // middleware nalozony w routingu web.php, ponizszy nie jest potrzebny
+        // $this->middleware('auth');
     }
 
     /**

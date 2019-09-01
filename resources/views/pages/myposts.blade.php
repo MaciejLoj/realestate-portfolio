@@ -8,17 +8,20 @@
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>Ogloszenie</th>
+                    <th>Moje ogloszenia</th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
+            {{-- zmienna $posts z RealEstateControllera  --}}
             @foreach($posts as $post)
             <tr>
                 <td>{{$post->title}}</td>
                 <td><a href="/ogloszenia/{{$post->id}}/edytuj" class="btn btn-primary">Edytuj</a></td>
+                {{-- dla opcji usuniecia posta musimy stworzyc formularz --}}
                 <td>
-                    {{Form::open(['action'=>['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
+                    {{-- $post->id jest parametrem ktory zostaje przekazany do PostsController$destroy --}}
+                    {{Form::open(['action'=>['PostsController@destroy',$post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
                         {{Form::hidden('_method', 'DELETE')}}
                         {{Form::submit('Usun', ['class' => 'btn btn-danger'])}}
                     {{Form::close()}}
