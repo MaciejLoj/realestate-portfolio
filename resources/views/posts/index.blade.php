@@ -5,30 +5,50 @@
     <div class="container">
         <div class="pb-4">
             Nasze ogloszenia
-            <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj ogloszenie</a>
+            <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj swoje ogloszenie</a>
         </div>
 
-        @if ($posts)
+        <div class="jumbotron">
+        @if(count($posts)>0)
 
             @foreach($posts as $post)
-                <div class="jumbotron">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <img class="w-100" src="/storage/cover_images/{{$post->cover_image}}">
                         </div>
-                        <div class="col-md-8">
-                            <h3><a href="/ogloszenia/{{$post->id}}">{{$post->title}}</a></h3>
-                            <small>Utworzone {{$post->created_at}} przez {{$post->user_id}}</small>
+                        <div class="col-8">
+                            <h3><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></h3>
+                            <small>Utworzone {{ $post->created_at }} przez {{ $post->user_id }}</small>
+
+                                @if($user->roles()->where('name', 'Admin'))
+
+                                    <div>
+                                        <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn primary">Edytuj</a>
+                                    </div>
+                                    <div>
+                                        {{ Form::open(['action'=>['PostsController@destroy',$post->id], 'method'=>'POST','class' => 'pull-right']) }}
+                                            {{ Form::hidden('_method', 'DELETE') }}
+                                            {{ Form::submit('Usun',['class'=>'btn btn danger']) }}
+                                        {{ Form::close() }}
+                                    </div>
+
+                                @endif
+
                         </div>
+
                     </div>
-                </div>
+
+
             @endforeach
 
+
+
+            {{-- potrzebne do paginacji --}}
             {{$posts->links()}}
         @else
-            <p>Brak ogłoszeń w bazie!</p>
+                <p>Brak ogloszen w bazie!</p>
         @endif
-
+        </div>
     </div>
 
 @endsection

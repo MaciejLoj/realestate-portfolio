@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->mediumText('body');
-            $table->timestamps();
+            $table->timestamps(); // created_at, updated_at
         });
     }
 

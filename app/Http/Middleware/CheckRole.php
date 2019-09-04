@@ -18,7 +18,7 @@ class CheckRole
     {
         // jesli user nie jest zalogowany, jesli nie ma usera
         if ($request->user() == null){
-            redirect('/login');
+            return redirect('/login');
         }
 
         $actions = $request->route()->getAction();

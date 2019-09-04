@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostsRequest;
 use App\Post;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
 use DB;
@@ -22,15 +23,25 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    // pokazuje wszystkie ogloszenia
     {
         // $posts = Post::all();
         // return Post::where('title','Post Two')->get();
         //$posts = DB::select('SELECT * FROM posts'); --> using sql
         //$posts = Post::orderBy('created_at', 'desc')->take(1)->get(); shows just 1 result
         //$posts = Post::orderBy('created_at', 'desc')->get();
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-        // wszystkie posty uszeregowane data dodania od najnowszego
-        return view('posts.index')->with('posts', $posts);
+        if(Auth::check()){
+            $user = Auth::user();
+            $admin = User::where('mail', 'mloj@o.pl')->first();
+            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+            // wszystkie posty uszeregowane data dodania od najnowszego
+            return view('posts.index')->with('posts', $posts)->with('admin', $admin)->with('user', $user);
+        } else {
+            $admin = User::where('mail', 'mloj@o.pl')->first();
+            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+            // wszystkie posty uszeregowane data dodania od najnowszego
+            return view('posts.index')->with('posts', $posts)->with('admin', $admin);
+        }
     }
 
     /**
@@ -91,7 +102,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        // find in database by given id
+        // ::find domyslnie szuka po pk = id
         $post = Post::find($id);
         return view('posts.show')->with('post', $post);
     }
@@ -104,9 +115,11 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        // admin
+        $user = User::where('mail', 'mloj@o.pl');
         $post = Post::find($id);
 
-        if(Auth::id()==$post->user_id)
+        if((Auth::id()==$post->user_id) || ($user))   // LUB user jest Adminem
         {
             return view('posts.edit')->with('post', $post);
         } else {
@@ -148,6 +161,7 @@ class PostsController extends Controller
      //$id to parametr ktory zostal przeslany z formularza
     public function destroy($id)
     {
+        // Post::find szuka domyslnie po primary key = id. Mozna zmienic pk na inne pole niz id.
         $post = Post::find($id);
         $post-> delete();
         return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');

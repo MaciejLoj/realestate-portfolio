@@ -7,7 +7,7 @@
         @if ($post)
 
             <div class="btn btn-light">
-                <a href="/posts">Powrot do listy ogloszen</a>
+                <a href="/ogloszenia">Powrot do listy ogloszen</a>
             </div>
             <div class="jumbotron">
                 <p>{{$post->title}}</p>
@@ -17,7 +17,7 @@
             </div>
             @if(Auth::check())
                 @if(Auth::user()->id == $post->user_id)
-                    <a href="/posts/{{$post->id}}/edit" class="btn btn-success">
+                    <a href="/ogloszenia/{{$post->id}}/edytuj" class="btn btn-success">
                         Edytuj Ogloszenie
                     </a>
                 @endif
