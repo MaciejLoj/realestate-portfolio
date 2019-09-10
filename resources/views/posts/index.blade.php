@@ -5,7 +5,7 @@
     <div class="container">
         <div class="pb-4">
             Nasze ogloszenia
-            <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj swoje ogloszenie</a>
+            <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj ogloszenie</a>
         </div>
 
         <div>
@@ -31,18 +31,18 @@
                             <div class="col-8">
                                 <td><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->created_at }}</td>
-                                <td>{{ $post->user_id }}</td>
+                                <td>{{ $post->user->name }}</td>
 
                                 @if(Auth::check())
                                     @if($user->roles()->where('name', 'Admin'))
 
                                         <td>
-                                            <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn primary">Edytuj</a>
+                                            <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn-primary">Edytuj</a>
                                         </td>
                                         <td>
                                             {{Form::open(['action'=>['PostsController@destroy',$post->id], 'method'=>'POST','class' => 'pull-right'])}}
                                                 {{Form::hidden('_method', 'DELETE')}}
-                                                {{Form::submit('Usun',['class'=>'btn btn danger'])}}
+                                                {{Form::submit('Usun',['class'=>'btn btn-danger'])}}
                                             {{Form::close()}}
                                         </td>
                                     @else

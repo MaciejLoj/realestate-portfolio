@@ -32,10 +32,9 @@ class PostsController extends Controller
         //$posts = Post::orderBy('created_at', 'desc')->get();
         if(Auth::check()){
             $user = Auth::user();
-            $admin = User::where('mail', 'mloj@o.pl')->first();
             $posts = Post::orderBy('created_at', 'desc')->paginate(10);
             // wszystkie posty uszeregowane data dodania od najnowszego
-            return view('posts.index')->with('posts', $posts)->with('admin', $admin)->with('user', $user);
+            return view('posts.index')->with('posts', $posts)->with('user', $user);
         } else {
             $admin = User::where('mail', 'mloj@o.pl')->first();
             $posts = Post::orderBy('created_at', 'desc')->paginate(10);
@@ -109,8 +108,9 @@ class PostsController extends Controller
     public function show($id)
     {
         // ::find domyslnie szuka po pk = id
+        $user = Auth::user();
         $post = Post::find($id);
-        return view('posts.show')->with('post', $post);
+        return view('posts.show')->with('post', $post)->with('user', $user);
     }
 
     /**

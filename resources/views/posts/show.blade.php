@@ -2,40 +2,42 @@
 
 @section('content')
 
-    <div class="container text-center">
 
-        @if ($post)
+    <div class="container">
+        <div class="btn btn-light">
+            <a href="/ogloszenia">Powrot do listy ogloszen</a>
+        </div>
+        <div class="jumbotron">
+        @if($post)
 
-            <div class="btn btn-light">
-                <a href="/ogloszenia">Powrot do listy ogloszen</a>
-            </div>
-            <div class="jumbotron">
-                <p>{{$post->title}}</p>
-                <p><small>Data dodania ogloszenia: {{$post->created_at}}</small></p>
-                <p><small>Ogloszenie dodane przez uzytkownika {{$post->user->name}}</small></p>
-                <hr>
-            </div>
-            @if(Auth::check())
-                @if(Auth::user()->id == $post->user_id)
-                    <a href="/ogloszenia/{{$post->id}}/edytuj" class="btn btn-success">
-                        Edytuj Ogloszenie
-                    </a>
+                <div class="row">
+                    <div class="col-4">
+                        <img class="w-100" src="/storage/cover_images/{{ $post->cover_image }}">
+                    </div>
+                    <div class="col-8">
+                        <p>{{ $post->title }}</p>
+                        <p>{{ $post->body }}
+                        <hr>
+                        <p><small>Data dodania ogloszenia: {{$post->created_at}}</small></p>
+                        <p><small>Ogloszenie dodane przez uzytkownika {{$post->user->name}}</small></p>
+                    </div>
+                </div>
+                @if((Auth::user()->id == $post->user_id) || ($user->roles()->where('name','Admin')))
+                    <div>
+                        <a href="/ogloszenia/{{$post->id}}/edytuj" class="btn btn-success">
+                            Edytuj Ogloszenie
+                        </a>
+                        {{Form::open(['action'=>['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
+                            {{Form::hidden('_method', 'DELETE')}}
+                            {{Form::submit('Usun ogloszenie', ['class' => 'btn btn-danger'])}}
+                        {{Form::close()}}
+                    </div>
                 @endif
-            @endif
 
         @else
-            <p>Ogloszenie jest nieaktualne!!</p>
+            <p>Brak ogloszenia o takim id!!</p>
         @endif
 
-        @if(Auth::check())
-            @if(Auth::user()->id == $post->user_id)
-                {{Form::open(['action'=>['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
-                    {{Form::hidden('_method', 'DELETE')}}
-                    {{Form::submit('Usun ogloszenie', ['class' => 'btn btn-danger'])}}
-                {{Form::close()}}
-            @endif
-        @endif
-
+        </div>
     </div>
-
 @endsection
