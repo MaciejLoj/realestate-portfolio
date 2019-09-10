@@ -8,39 +8,53 @@
             <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj swoje ogloszenie</a>
         </div>
 
-        <div class="jumbotron">
+        <div>
         @if(count($posts)>0)
+            <table class="table stripped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>Tytul</th>
+                        <th>Data utworzenia</th>
+                        <th>Autor</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-            @foreach($posts as $post)
-                    <div class="row">
-                        <div class="col-4">
-                            <img class="w-100" src="/storage/cover_images/{{$post->cover_image}}">
-                        </div>
-                        <div class="col-8">
-                            <h3><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></h3>
-                            <small>Utworzone {{ $post->created_at }} przez {{ $post->user_id }}</small>
+                @foreach($posts as $post)
+                    <tr>
+                        <div class="row">
+                            <div class="col-4">
+                                <td><img class="w-100" src="/storage/cover_images/{{$post->cover_image}}"></td>
+                            </div>
+                            <div class="col-8">
+                                <td><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></td>
+                                <td>{{ $post->created_at }}</td>
+                                <td>{{ $post->user_id }}</td>
 
-                                @if($user->roles()->where('name', 'Admin'))
+                                @if(Auth::check())
+                                    @if($user->roles()->where('name', 'Admin'))
 
-                                    <div>
-                                        <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn primary">Edytuj</a>
-                                    </div>
-                                    <div>
-                                        {{ Form::open(['action'=>['PostsController@destroy',$post->id], 'method'=>'POST','class' => 'pull-right']) }}
-                                            {{ Form::hidden('_method', 'DELETE') }}
-                                            {{ Form::submit('Usun',['class'=>'btn btn danger']) }}
-                                        {{ Form::close() }}
-                                    </div>
-
+                                        <td>
+                                            <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn primary">Edytuj</a>
+                                        </td>
+                                        <td>
+                                            {{Form::open(['action'=>['PostsController@destroy',$post->id], 'method'=>'POST','class' => 'pull-right'])}}
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                {{Form::submit('Usun',['class'=>'btn btn danger'])}}
+                                            {{Form::close()}}
+                                        </td>
+                                    @else
+                                        <td></td>
+                                        <td></td>
+                                    @endif
                                 @endif
-
+                            </div>
                         </div>
-
-                    </div>
-
-
-            @endforeach
-
+                    </tr>
+                @endforeach
+            </table>
 
 
             {{-- potrzebne do paginacji --}}

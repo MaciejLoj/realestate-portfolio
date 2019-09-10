@@ -63,14 +63,20 @@ class PostsController extends Controller
     public function store(PostsRequest $request)
     {
 
-        // jesli dodano plik do formularza (pole - 'cover_image')
+        // jesli dodano plik do formularza (name pola to - 'cover_image')
+        // czy w calej aplikacji dodano gdzies do formularza plik o nazwie 'cover_image'
         if($request->hasFile('cover_image')){
             // zmiennej przypisuje dokladna nazwe pliku dodanego przez formularz o name = 'cover_image'
             $filenameWithExtension = $request->file('cover_image')->getClientOriginalName();
             // sluzy do pobierania czesci pathu (cala, baza, samo rozszerzenie itp)
             $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
+                // $filename = pathinfo($file, PATHINFO_FILENAME) -> bez rozszerzenia pobiera, nazwe glowna pliku;
+                // $extension = pathinfo($file, PATHINFO_EXTENSION) -> samo rozszerzenie pobiera
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // pobiera samo rozszerzenie pliku .jpg
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            //tworzymy nazwe pliku, ktora ma byc zapisana ostatecznie w folderze
+            //zapisujemy plik w folderze pod stworzona nazwa $fileNameToStore
             $path=$request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
 
         } else {
@@ -116,7 +122,8 @@ class PostsController extends Controller
     public function edit($id)
     {
         // admin
-        $user = User::where('mail', 'mloj@o.pl');
+        $user = Auth::user();
+        // $user = User::where('mail', 'mloj@o.pl');
         $post = Post::find($id);
 
         if((Auth::id()==$post->user_id) || ($user))   // LUB user jest Adminem
