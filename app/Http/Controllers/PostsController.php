@@ -109,7 +109,7 @@ class PostsController extends Controller
     {
         // ::find domyslnie szuka po pk = id
         $user = Auth::user();
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         return view('posts.show')->with('post', $post)->with('user', $user);
     }
 
@@ -124,7 +124,7 @@ class PostsController extends Controller
         // admin
         $user = Auth::user();
         // $user = User::where('mail', 'mloj@o.pl');
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         if((Auth::id()==$post->user_id) || ($user))   // LUB user jest Adminem
         {
@@ -149,7 +149,7 @@ class PostsController extends Controller
         ]);
 
         // Create POST, mozemy uzyc Post bo dalismy use Post u gory
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         // do title obiektu zostanie przypisana tresc z formularza o name=title
         $post->title = $request->input('title');
         $post->body = $request->input('body');
@@ -169,7 +169,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         // Post::find szuka domyslnie po primary key = id. Mozna zmienic pk na inne pole niz id.
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post-> delete();
         return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
     }
