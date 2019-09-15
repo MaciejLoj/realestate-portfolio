@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
 use DB;
+use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
@@ -30,17 +31,10 @@ class PostsController extends Controller
         //$posts = DB::select('SELECT * FROM posts'); --> using sql
         //$posts = Post::orderBy('created_at', 'desc')->take(1)->get(); shows just 1 result
         //$posts = Post::orderBy('created_at', 'desc')->get();
-        if(Auth::check()){
-            $user = Auth::user();
-            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-            // wszystkie posty uszeregowane data dodania od najnowszego
-            return view('posts.index')->with('posts', $posts)->with('user', $user);
-        } else {
-            $admin = User::where('mail', 'mloj@o.pl')->first();
-            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-            // wszystkie posty uszeregowane data dodania od najnowszego
-            return view('posts.index')->with('posts', $posts)->with('admin', $admin);
-        }
+        $user = Auth::user();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        // wszystkie posty uszeregowane data dodania od najnowszego
+        return view('posts.index')->with('posts', $posts)->with('user', $user);
     }
 
     /**
@@ -105,11 +99,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
         // ::find domyslnie szuka po pk = id
         $user = Auth::user();
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         return view('posts.show')->with('post', $post)->with('user', $user);
     }
 
@@ -119,16 +113,16 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         // admin
         $user = Auth::user();
-        // $user = User::where('mail', 'mloj@o.pl');
-        $post = Post::findOrFail($id);
+        //$user = User::where('mail', 'mloj@o.pl');
+        // $post = Post::findOrFail($id);
 
         if((Auth::id()==$post->user_id) || ($user))   // LUB user jest Adminem
         {
-            return view('posts.edit')->with('post', $post);
+            return view('posts.edit')->with('post', $post)->with('user', $user);
         } else {
             return redirect('/ogloszenia')->with('error', 'Dostep nie jest mozliwy');
         }
@@ -155,7 +149,7 @@ class PostsController extends Controller
         $post->body = $request->input('body');
         $post->save();
 
-        return redirect('/posts')->with('success', 'Aktualizowano ogloszenie!');
+        return redirect('/ogloszenia')->with('success', 'Aktualizowano ogloszenie!');
     }
 
     /**

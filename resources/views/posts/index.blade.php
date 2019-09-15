@@ -32,10 +32,8 @@
                                 <td><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->created_at }}</td>
                                 <td>{{ $post->user->name }}</td>
-
-                                @if(Auth::check())
-                                    @if($user->roles()->where('name', 'Admin'))
-
+                                @if($user)
+                                    @if(($user->id == $post->user->id) || ($user->roles->where('name', 'Admin')->first()))
                                         <td>
                                             <a href="/ogloszenia/{{ $post->id }}/edytuj" class="btn btn-primary">Edytuj</a>
                                         </td>
@@ -49,6 +47,9 @@
                                         <td></td>
                                         <td></td>
                                     @endif
+                                @else
+                                    <td></td>
+                                    <td></td>
                                 @endif
                             </div>
                         </div>
