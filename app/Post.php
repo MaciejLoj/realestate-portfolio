@@ -12,10 +12,13 @@ class Post extends Model
     public $primaryKey = 'id';
     //Timetamps
     public $timestamps = true;
-    // te pole zostana przekazane do nowej instancji utworzonej przez ::create.
+    // te pole zostana przekazane do nowej instancji utworzonej dzieki komendzie ::create.
     // dokumentacja eloquent
     protected $fillable = [
-        'title', 'body'
+        'title',
+        'body',
+        'user_id',
+        'cover_image',
     ];
     //one to one relacja. Jeden post moze byc tylko od 1 osoby
     public function user(){

@@ -23,8 +23,8 @@ class PostsRequest extends FormRequest
      */
     public function rules(){
         return [
-            'title' => 'required', // 'required|email'
-            'body' => 'required', // 'required|numeric'
+            'title' => 'required|min:5', // 'required|email'
+            'body' => 'required|min:10', // 'required|numeric'
             'cover_image' => 'image|nullable|max:1999',
         ];
     }
@@ -33,7 +33,7 @@ class PostsRequest extends FormRequest
     public function messages(){
         return [
             'title.required' => 'Pole tytul jest wymagane',
-            'body.required' => 'Pole jest wymagane',
+            'body.required' => 'Pole z trescia ogloszenia jest wymagane',
 
         ];
 

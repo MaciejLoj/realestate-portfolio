@@ -5,7 +5,7 @@
     <div class="container text-center">
         <p>Dodaj ogloszenie</p>
 
-        {{ Form::open(array('action' => ['PostsController@update', $post->id], 'method' => 'POST')) }}
+        {{ Form::open(array('action' => ['PostsController@update', $post->id])) }}
         	<div class="form-group">
                 <!-- title to name, Title to naglowek -->
                 {{ Form::label('title', 'Tytul ogloszenia') }}
@@ -17,7 +17,7 @@
                 {{ Form::label('body', 'Tresc ogloszenia') }}
                 {{ Form::textarea('body', $post->body, ['class' => 'form-control', 'placeholder' => 'Tresc' ] )}}
             </div>
-            {{ Form::hidden('_method', 'PUT')}}
+            {{ Form::hidden('_method', 'PATCH')}}
             {{ Form::submit('Edytuj ogloszenie', ['class' => 'btn btn-primary']) }}
         {{ Form::close() }}
 

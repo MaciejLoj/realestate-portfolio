@@ -11,19 +11,13 @@
 |
 */
 
-
-Route::get('/', 'RealEstateController@start'); // OK
-Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
-Route::get('/ogloszenia', 'PostsController@index'); // OK
-Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie
-
 Route::group(['middleware'=>'roles','roles'=>['User', 'Admin', 'Moderator']], function() {
     Route::get('/mojeogloszenia', 'RealEstateController@myposts'); // OK
     Route::get('/ogloszenia/dodaj', 'PostsController@create');
     Route::post('/ogloszenia', 'PostsController@store');
     Route::get('/ogloszenia/{post}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
-    Route::put('/ogloszenia/{id}', 'PostsController@update'); // wyslij zmiane do bazy
-    Route::delete('/ogloszenia/{id}', 'PostsController@destroy'); // OK
+    Route::patch('/ogloszenia/{post}', 'PostsController@update'); // wyslij zmiane do bazy
+    Route::delete('/ogloszenia/{post}', 'PostsController@destroy'); // OK
 });
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
@@ -32,4 +26,10 @@ Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() 
     // put/patch zamiast post?
 });
 
+// zmienic auth::routes na polskie
 Auth::routes();
+
+Route::get('/', 'RealEstateController@start'); // OK
+Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
+Route::get('/ogloszenia', 'PostsController@index'); // OK
+Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie

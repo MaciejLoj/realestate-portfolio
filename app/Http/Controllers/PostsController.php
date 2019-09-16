@@ -76,15 +76,27 @@ class PostsController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
-        // Create POST, mozemy uzyc Post - dalismy use Post u gory
-        $post = new Post;
-        // do title obiektu zostanie przypisana tresc z formularza o name=title
-        $post->title = $request->input('title'); // Input::get('title');
-        $post->body = $request->input('body');
-        // currently logged in users is will be given
-        $post->user_id = Auth::id();
-        $post->cover_image = $fileNameToStore;
-        $post->save();
+        // w zwiazku z mass assignment musimy dodac pole fillable do modelu Post
+        Post::create([
+            'title' => request( 'title'),
+            'body' => request( 'body'),
+            'user_id' => Auth::id(),
+            'cover_image' => $fileNameToStore,
+        ]);
+
+        // One important thing to note here: if you plan to use create(),
+        //  all the attributes that you pass to it have to be listed in the
+        //$fillable attribute on the model.
+
+        // // Create POST, mozemy uzyc Post - dalismy use Post u gory
+        // $post = new Post;
+        // // do title obiektu zostanie przypisana tresc z formularza o name=title
+        // $post->title = $request->input('title'); // Input::get('title');
+        // $post->body = $request->input('body');
+        // // currently logged in users is will be given
+        // $post->user_id = Auth::id();
+        // $post->cover_image = $fileNameToStore;
+        // $post->save();
 
         return redirect('/ogloszenia')->with('success', 'Dodano ogloszenie!');
         // Session::flash('message' , 'Successfully created ogloszenie');
@@ -135,19 +147,18 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsRequest $request, Post $post)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required'
-        ]);
-
-        // Create POST, mozemy uzyc Post bo dalismy use Post u gory
-        $post = Post::findOrFail($id);
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'body' => 'required'
+        // ]);
+        // $post = Post::findOrFail($id);
         // do title obiektu zostanie przypisana tresc z formularza o name=title
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        $post->save();
+        $post->update(request(['title', 'body']));
+        // $post->title = $request->input('title');
+        // $post->body = $request->input('body');
+        // $post->save();
 
         return redirect('/ogloszenia')->with('success', 'Aktualizowano ogloszenie!');
     }
@@ -160,10 +171,10 @@ class PostsController extends Controller
      */
 
      //$id to parametr ktory zostal przeslany z formularza
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         // Post::find szuka domyslnie po primary key = id. Mozna zmienic pk na inne pole niz id.
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         $post-> delete();
         return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
     }
