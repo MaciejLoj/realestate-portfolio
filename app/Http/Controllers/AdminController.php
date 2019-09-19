@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
+use App\Roles;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -33,19 +33,23 @@ class HomeController extends Controller
 
      public function postAdminRoles(Request $request)
      {
+         // $role_user = Roles::where('name','User')->first();
+         // $role_admin = Roles::where('name','Admin')->first();
+         // $role_moderator = Roles::where('name','Moderator')->first();
+
          // $request['email'] ???
-         $user = User::where('email', $request['email'])->firstOrFail();
+         $user = User::where('email', $request['email'])->first();
          $user->roles()->detach();
-         if($request['role_user']){
-             $user->roles()->attach(Role::where('name','User'));
-         }
-         if($request['role_admin']){
-             $user->roles()->attach(Role::where('name', 'Admin'));
-         }
-         if($request['role_moderator']){
-             $user->roles()->attach(Role::where('name', 'Moderator'));
-         }
 
-
-     }
+         if($request['role_use']){
+             $user->roles()->attach(Roles::where('name','User')->first());
+         }
+         if($request['role_admi']){
+             $user->roles()->attach(Roles::where('name','Admin')->first());
+         }
+         if($request['role_moderato']){
+             $user->roles()->attach(Roles::where('name','Moderator')->first());
+         }
+         return redirect()->back();
+    }
 }

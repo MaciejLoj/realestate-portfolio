@@ -39,6 +39,7 @@ class User extends Authenticatable
     // user moze miec wiele postow
     public function posts(){
         return $this->hasMany('App\Post');
+        // $this->hasMany(Post::class)
     }
 
     public function roles(){

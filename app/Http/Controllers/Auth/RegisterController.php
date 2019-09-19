@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Roles;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/mojeogloszenia';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -69,11 +70,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-        $role = Roles::where('name', 'User')->first();
-        $user->roles()->save($role);
+        // $role = Roles::where('name', 'User')->first();
+        $user->roles()->attach(Roles::where('name','User')->first());
+        Auth::login($user);
         // $user->roles()->attach(Role::where('name', 'User')->first());
-        return $user;
-
     }
 }

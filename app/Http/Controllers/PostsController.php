@@ -78,8 +78,8 @@ class PostsController extends Controller
 
         // w zwiazku z mass assignment musimy dodac pole fillable do modelu Post
         Post::create([
-            'title' => request( 'title'),
-            'body' => request( 'body'),
+            'title' => request('title'),
+            'body' => request('body'),
             'user_id' => Auth::id(),
             'cover_image' => $fileNameToStore,
         ]);
