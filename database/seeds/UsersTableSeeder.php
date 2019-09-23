@@ -27,6 +27,7 @@ class UsersTableSeeder extends Seeder
         $user->email = $faker->email;
         $user->password = bcrypt('user');
         $user->save();
+        // bez () jak jest property
         $user->roles()->attach($role_user);
         }
         $admin = new User();

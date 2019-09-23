@@ -40,14 +40,13 @@ class AdminController extends Controller
          // $request['email'] ???
          $user = User::where('email', $request['email'])->first();
          $user->roles()->detach();
-
-         if($request['role_use']){
+         if($request['role_user']){
              $user->roles()->attach(Roles::where('name','User')->first());
          }
-         if($request['role_admi']){
+         if($request['role_admin']){
              $user->roles()->attach(Roles::where('name','Admin')->first());
          }
-         if($request['role_moderato']){
+         if($request['role_moderator']){
              $user->roles()->attach(Roles::where('name','Moderator')->first());
          }
          return redirect()->back();

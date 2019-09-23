@@ -43,7 +43,8 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany('App\Roles', 'user_role', 'user_id', 'roles_id');
+        // user_role to nazwa tabeli create_user_roles migration
+        return $this->belongsToMany('App\Roles', 'user_role', 'users_id', 'roles_id');
     }
 
     // skad ten parametr $roles?

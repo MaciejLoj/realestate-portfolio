@@ -22,7 +22,7 @@ Route::group(['middleware'=>'roles','roles'=>['User', 'Admin', 'Moderator']], fu
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
     Route::get('/uzytkownicy', 'AdminController@all_users');
-    Route::post('/uzytkownicy/zmiana-roli', 'AdminController@postAdminRoles');
+    Route::post('/uzytkownicy', 'AdminController@postAdminRoles')->name('admin.assign');
     // put/patch zamiast post?
 });
 
