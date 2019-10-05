@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail; // potwierdzenie maila
+use App\Notifications\VerifyEmail; // spersonalizowany mail w celu aktywacji
 
-class User extends Authenticatable
+
+// class User extends Authenicatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -66,6 +69,13 @@ class User extends Authenticatable
         if($this->roles()->where('name', $role)->first()){
             return true;
         }
+    }
+
+    // w celu personalizacji mojego maila nadpisujemy funkcje
+    //sendEmailVerificationNotification() i podaje szablon Notification,
+    // tutaj jest to VerifyEmail
+    public function sendEmailVerificationNotification(){
+        $this->notify(new VerifyEmail);
     }
 
 }

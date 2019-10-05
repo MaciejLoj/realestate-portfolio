@@ -15,6 +15,8 @@ class RealEstateController extends Controller
         w routingu wiec tego nie potrzebujemy.
         $this->middleware('auth', ['except' => ['showall', 'home', 'start']]);
         */
+
+        // $this->middleware(['auth', 'verified']) - potwierdzenie maila
     }
 
     public function showall()

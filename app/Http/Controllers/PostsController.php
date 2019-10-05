@@ -8,7 +8,9 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
 use DB;
+use App\Mail\AddedPostMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostsController extends Controller
 {
@@ -83,7 +85,8 @@ class PostsController extends Controller
             'user_id' => Auth::id(),
             'cover_image' => $fileNameToStore,
         ]);
-
+        // $user = Auth::user();
+        Mail::to(auth()->user()->email)->send(new AddedPostMail());
         // One important thing to note here: if you plan to use create(),
         //  all the attributes that you pass to it have to be listed in the
         //$fillable attribute on the model.
@@ -177,5 +180,28 @@ class PostsController extends Controller
         // $post = Post::findOrFail($id);
         $post-> delete();
         return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
+    }
+
+    public function find_post()
+    {
+        return view('posts.find');
+    }
+
+    public function find_post_db(Request $request)
+    {
+        $find_title = $request->input('keyword');
+        // znajdz posty w ktorych w tytule jest keyword z formularza z find.blade.php
+        $posts = Post::where('title', $find_title)->get();
+        return view('posts.found_re_bytitle')->with('posts', $posts);
+    }
+
+    public function find_realestate()
+    {
+        //
+    }
+
+    public function find_other()
+    {
+        //
     }
 }

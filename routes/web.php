@@ -39,5 +39,7 @@ Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
 Route::get('/ogloszenia', 'PostsController@index'); // OK
 Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie
 // panel z wyborem ogloszen
-Route::get('/znajdz-ogloszenie', 'PostsController@find_post_form');
-Route::post('/znajdz-ogloszenie', 'PostsController@find_post_database');
+Route::get('/znajdz-ogloszenie', 'PostsController@find_post');
+Route::post('/znajdz-ogloszenie', 'PostsController@find_post_db');
+Route::get('/znajdz-nieruchomosc', 'PostsController@find_realestate');
+Route::get('/znajdz-pozostale', 'PostsController@find_other');

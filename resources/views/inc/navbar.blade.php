@@ -45,6 +45,8 @@
 
                             <a class="dropdown-item" href="/mojeogloszenia">Moje ogloszenia</a>
 
+                            <a class="dropdown-item" href="/zmianahasla">Zmien haslo</a>
+
                         </div>
                     </li>
                 @endguest

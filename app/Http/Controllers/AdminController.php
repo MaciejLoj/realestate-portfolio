@@ -17,6 +17,9 @@ class AdminController extends Controller
     {
         // middleware nalozony w routingu web.php, ponizszy nie jest potrzebny
         // $this->middleware('auth');
+
+        // $this->middleware(['auth', 'verified']) - potwierdzenie maila, w Admin
+        // czy RealEstateController
     }
 
     /**

@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();
+            // do dodania gdy chcemy resetowac haslo
+            $table->rememberToken();
+            //do dodania gdy chcemy werfyikowac mailowo
+            $table->timestamp('email_verified_at')->nullable();
         });
     }
 

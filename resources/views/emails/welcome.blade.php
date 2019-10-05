@@ -12,8 +12,7 @@
         </h2>
         <br/>
         <p>
-            Jesli to nie Ty podales w rejestracji adres {{ $user->email }}
-            prosimy o kontakt!
+            Na podany adres otrzymasz niebawem maila aktywacyjnego, prosimy o potwierdzenie.
         </p>
 
     </body>

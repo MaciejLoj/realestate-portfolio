@@ -2,11 +2,14 @@
 
 namespace App\Mail;
 
+use App\User;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
 
 class AddedPostMail extends Mailable
 {
@@ -27,8 +30,12 @@ class AddedPostMail extends Mailable
      *
      * @return $this
      */
-    public function build(Post $post)
+    public function build()
     {
-        return $this->view('emails.addedpost');
+
+        $post = Post::where('user_id',auth()->user()->id)
+            ->orderBy('created_at', 'DESC')->first();
+        //$posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        return $this->view('emails.addedpost')->with('post', $post);
     }
 }

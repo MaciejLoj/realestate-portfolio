@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Mail\WelcomeMail;
 
 class RegisterController extends Controller
 {
@@ -65,6 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // if verified
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -73,6 +76,9 @@ class RegisterController extends Controller
         // $role = Roles::where('name', 'User')->first();
         $user->roles()->attach(Roles::where('name','User')->first());
         Auth::login($user);
+        Mail::to($data['email'])->send(new WelcomeMail());
+        // $user
         // $user->roles()->attach(Role::where('name', 'User')->first());
+        return $user;
     }
 }
