@@ -11,13 +11,17 @@
 |
 */
 
-Route::group(['middleware'=>'roles','roles'=>['User', 'Admin', 'Moderator']], function() {
+Route::group(['middleware'=>['verified','roles'],'roles'=>['User', 'Admin', 'Moderator']], function() {
     Route::get('/mojeogloszenia', 'RealEstateController@myposts'); // OK
     Route::get('/ogloszenia/dodaj', 'PostsController@create');
     Route::post('/ogloszenia', 'PostsController@store');
     Route::get('/ogloszenia/{post}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
     Route::patch('/ogloszenia/{post}', 'PostsController@update'); // wyslij zmiane do bazy
     Route::delete('/ogloszenia/{post}', 'PostsController@destroy'); // OK
+    // do aktualizacji
+    Route::get('/zmianahasla', 'ChangePasswordController@show');
+    Route::post('/zmianahasla', 'ChangePasswordController@update');
+
 });
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
@@ -27,9 +31,13 @@ Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() 
 });
 
 // zmienic auth::routes na polskie
-Auth::routes();
+Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]), POTWIERDZENIE REJESTRACJI MAILEM
 
 Route::get('/', 'RealEstateController@start'); // OK
 Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
 Route::get('/ogloszenia', 'PostsController@index'); // OK
 Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie
+// panel z wyborem ogloszen
+Route::get('/znajdz-ogloszenie', 'PostsController@find_post_form');
+Route::post('/znajdz-ogloszenie', 'PostsController@find_post_database');
