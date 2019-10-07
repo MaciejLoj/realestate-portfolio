@@ -20,7 +20,14 @@
         <div class="form-group">
             {{ Form::file('cover_image')}}
         </div>
+        <div class="form-group">
+            {{ Form::label('is_real_estate', 'Ogloszenie dotyczy nieruchomosci?') }}
+            {{ Form::checkbox('is_real_estate', 0, true) }}
+            {{-- jesli checkbox jest true i ma value to po kliknieciu submit przeslemy do bazy te wartosc.
+            W innym przypadku (false) leci jako null --}}
+        </div>
         {{ Form::submit('Dodaj ogloszenie', ['class' => 'btn btn-primary']) }}
+
     {{ Form::close() }}
 
 </div>

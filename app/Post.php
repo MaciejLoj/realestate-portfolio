@@ -17,6 +17,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
+        'is_real_estate',
         'user_id',
         'cover_image',
     ];

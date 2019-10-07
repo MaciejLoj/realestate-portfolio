@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
         }
         $admin = new User();
         $admin->name = 'maciej';
-        $admin->email = 'mloj@o.pl';
+        $admin->email = 'maciej.loj@gmail.com';
         $admin->password = bcrypt('admin');
         $admin->save();
         $admin->roles()->attach($role_admin);

@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 // for SQL queries use DB library
 use DB;
+// use Illuminate\Support\Facades\DB;
 use App\Mail\AddedPostMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -82,6 +83,7 @@ class PostsController extends Controller
         Post::create([
             'title' => request('title'),
             'body' => request('body'),
+            'is_real_estate' => request('is_real_estate'),
             'user_id' => Auth::id(),
             'cover_image' => $fileNameToStore,
         ]);
@@ -190,9 +192,14 @@ class PostsController extends Controller
     public function find_post_db(Request $request)
     {
         $find_title = $request->input('keyword');
-        // znajdz posty w ktorych w tytule jest keyword z formularza z find.blade.php
-        $posts = Post::where('title', $find_title)->get();
-        return view('posts.found_re_bytitle')->with('posts', $posts);
+        $posts = DB::select("SELECT * FROM posts WHERE title LIKE '%$find_title%' ");
+        // znajduje post  ktory jest rowny keywordowi z formularza z find.blade.php
+        // $posts = Post::where('title', $find_title)->get();
+        return view('posts.found_post_bytitle')->with('posts', $posts);
+
+        // $posts = DB::select('SELECT * FROM posts WHERE title LIKE @find_title ');
+        // $contains = str_contains('This is my name', 'my'); zwroci true
+        // $contains = str_contains('This is my name', ['my', 'foo']);
     }
 
     public function find_realestate()

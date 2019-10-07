@@ -43,6 +43,7 @@ class AdminController extends Controller
          // $request['email'] ???
          $user = User::where('email', $request['email'])->first();
          $user->roles()->detach();
+         // jesli checkbox 'role_user' jest ustawiony, tzn na true = $request ->has()
          if($request['role_user']){
              $user->roles()->attach(Roles::where('name','User')->first());
          }

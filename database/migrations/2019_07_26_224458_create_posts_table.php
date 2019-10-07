@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->mediumText('body');
+            $table->boolean('is_real_estate')->nullable();
             $table->timestamps(); // created_at, updated_at
         });
     }

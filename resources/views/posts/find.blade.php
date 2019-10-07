@@ -16,6 +16,9 @@
                 {{ Form::text('keyword')}}
                 <!-- name = title, value = $post->title , [] = atrybuty wewnatrz, classa itp -->
             </div>
+            <div class="form-group">
+                {{ Form::submit('Wyszukaj', ['class' => 'btn btn-primary']) }}
+            </div>
         {{ Form::close() }}
     </div>
 </div>
