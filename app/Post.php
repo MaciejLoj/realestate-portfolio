@@ -15,6 +15,8 @@ class Post extends Model
     // te pole zostana przekazane do nowej instancji utworzonej dzieki komendzie ::create.
     // dokumentacja eloquent
     protected $fillable = [
+        'location',
+        'price',
         'title',
         'body',
         'is_real_estate',

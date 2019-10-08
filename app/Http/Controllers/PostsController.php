@@ -81,6 +81,8 @@ class PostsController extends Controller
 
         // w zwiazku z mass assignment musimy dodac pole fillable do modelu Post
         Post::create([
+            'location' => request('location'),
+            'price' => request('price'),
             'title' => request('title'),
             'body' => request('body'),
             'is_real_estate' => request('is_real_estate'),
@@ -204,11 +206,31 @@ class PostsController extends Controller
 
     public function find_realestate()
     {
-        //
+        // wszystkie nieruchomosci, w bazie danych w columnie maja zaznaczone 0
+        return view('posts.find_re');
+    }
+
+    public function find_realestate_db(Request $request)
+    {
+        // wszystkie nieruchomosci, w bazie danych w columnie maja zaznaczone 0
+        $location = $request->input('location');
+        $min_price = $request->input('min_price');
+        $max_price = $request->input('max_price');
+        $found_re_post = DB::select("SELECT * FROM posts WHERE is_real_estate = 0
+            AND location = $location AND price BETWEEN($min_price,$max_price)");
+        return view('posts.found_re')->with('posts', $found_re_post);
     }
 
     public function find_other()
     {
-        //
+        // wszystkie pozostale rzeczy w bazie maja oznaczenie null w columnie
+        return view('posts.find_ot');
     }
+
+    public function find_other_db()
+    {
+        // wszystkie pozostale rzeczy w bazie maja oznaczenie null w columnie
+        return view('posts.find_ot');
+    }
+
 }

@@ -15,6 +15,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('location');
+            $table->integer('price');
             $table->string('title');
             $table->mediumText('body');
             $table->boolean('is_real_estate')->nullable();

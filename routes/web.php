@@ -42,4 +42,6 @@ Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie
 Route::get('/znajdz-ogloszenie', 'PostsController@find_post');
 Route::post('/znajdz-ogloszenie', 'PostsController@find_post_db');
 Route::get('/znajdz-nieruchomosc', 'PostsController@find_realestate');
+Route::post('/znajdz-nieruchomosc', 'PostsController@find_realestate_db');;
 Route::get('/znajdz-pozostale', 'PostsController@find_other');
+Route::post('/znajdz-pozostale', 'PostsController@find_other_db');

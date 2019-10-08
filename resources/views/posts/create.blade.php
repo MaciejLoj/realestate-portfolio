@@ -6,6 +6,19 @@
     <p>Dodaj ogloszenie</p>
 
     {{ Form::open(array('action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data')) }}
+
+        <div class="form-group">
+            {{ Form::label('location', 'Dzielnica') }}
+            <br>
+            {{ Form::select('location', ['B' => 'Bielany', 'Z' => 'Zoliborz', 'M' => 'Mokotow'], null, ['placeholder' => 'Wybierz dzielnice'])}}
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('price', 'Cena - za miesiac') }}
+            <br>
+            {{ Form::number('price')}}
+        </div>
+
     	<div class="form-group">
             <!-- title to name, Title to naglowek -->
             {{ Form::label('title', 'Tytul ogloszenia') }}
