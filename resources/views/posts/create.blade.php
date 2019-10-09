@@ -10,7 +10,7 @@
         <div class="form-group">
             {{ Form::label('location', 'Dzielnica') }}
             <br>
-            {{ Form::select('location', ['B' => 'Bielany', 'Z' => 'Zoliborz', 'M' => 'Mokotow'], null, ['placeholder' => 'Wybierz dzielnice'])}}
+            {{ Form::select('location', ['Bielany' => 'Bielany', 'Zoliborz' => 'Zoliborz', 'Mokotow' => 'Mokotow'], null, ['placeholder' => 'Wybierz dzielnice'])}}
         </div>
 
         <div class="form-group">

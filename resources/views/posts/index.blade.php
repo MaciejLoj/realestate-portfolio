@@ -6,6 +6,7 @@
         <div class="pb-4">
             Nasze ogloszenia
             <a href="/ogloszenia/dodaj" class="btn btn-success">Dodaj ogloszenie</a>
+            <a href="/znajdz-ogloszenie" class="btn btn-success">Znajdz ogloszenie</a>
         </div>
 
         <div>

@@ -6,11 +6,11 @@
             <thead class="thead-dark">
                 <tr>
                     <th></th>
+                    <th>Tytul</th>
                     <th></th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Cena</th>
+                    <th>Lokalizacja</th>
                 </tr>
             </thead>
 
@@ -24,8 +24,9 @@
                             <td><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></td>
                             <td></td>
                             <td>{{ $post->body }}</td>
-                            <td></td>
-                            <td></td>
+                            {{-- ogranicz wyswietlanie body do 100 slow --}}
+                            <td>{{ $post->price }}</td>
+                            <td>{{ $post->location }}</td>
                         </div>
                     </div>
                 </tr>

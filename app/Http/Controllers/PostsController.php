@@ -206,18 +206,18 @@ class PostsController extends Controller
 
     public function find_realestate()
     {
-        // wszystkie nieruchomosci, w bazie danych w columnie maja zaznaczone 0
         return view('posts.find_re');
     }
 
     public function find_realestate_db(Request $request)
     {
-        // wszystkie nieruchomosci, w bazie danych w columnie maja zaznaczone 0
+        // wszystkie nieruchomosci, w bazie danych w columnie is_real_estate
+        // maja zaznaczone 0
         $location = $request->input('location');
         $min_price = $request->input('min_price');
         $max_price = $request->input('max_price');
-        $found_re_post = DB::select("SELECT * FROM posts WHERE is_real_estate = 0
-            AND location = $location AND price BETWEEN($min_price,$max_price)");
+        $found_re_post = DB::select("SELECT * FROM posts WHERE (is_real_estate = 0)
+            AND (location = '$location') AND (price BETWEEN $min_price AND $max_price)");
         return view('posts.found_re')->with('posts', $found_re_post);
     }
 

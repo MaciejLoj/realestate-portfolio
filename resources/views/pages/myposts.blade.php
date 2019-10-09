@@ -27,8 +27,9 @@
                         {{-- dla opcji usuniecia posta musimy stworzyc formularz --}}
                         <td>
                             {{-- $post->id jest parametrem ktory zostaje przekazany do PostsController$destroy --}}
-                            {{Form::open(['action'=>['PostsController@destroy',$post->id], 'method' => 'POST', 'class' => 'pull-right'])}}
+                            {{Form::open(['action'=>['PostsController@destroy',$post->id], 'method' => 'POST', 'class' => 'delete_confirmation', 'data-confirm' => "Jestes pewny?"])}}
                                 {{Form::hidden('_method', 'DELETE')}}
+
                                 {{Form::submit('Usun', ['class' => 'btn btn-danger'])}}
                             {{Form::close()}}
                         </td>
