@@ -80,6 +80,7 @@ class PostsController extends Controller
         }
 
         // w zwiazku z mass assignment musimy dodac pole fillable do modelu Post
+        // $new_post = Post::create
         Post::create([
             'location' => request('location'),
             'price' => request('price'),
@@ -90,6 +91,7 @@ class PostsController extends Controller
             'cover_image' => $fileNameToStore,
         ]);
         // $user = Auth::user();
+        // if ($new_post){Mail::to, return redirect}
         Mail::to(auth()->user()->email)->send(new AddedPostMail());
         // One important thing to note here: if you plan to use create(),
         //  all the attributes that you pass to it have to be listed in the
@@ -161,13 +163,18 @@ class PostsController extends Controller
         //     'body' => 'required'
         // ]);
         // $post = Post::findOrFail($id);
+        // $post = Post::where('id', $post->id)
+        //         ->update([
+                //      'title'=>request->input('title'),
+                //      'body'=>request->input('body')]);                                       ])
         // do title obiektu zostanie przypisana tresc z formularza o name=title
         $post->update(request(['title', 'body']));
         // $post->title = $request->input('title');
         // $post->body = $request->input('body');
         // $post->save();
-
+        // if ($post){return redirect}
         return redirect('/ogloszenia')->with('success', 'Aktualizowano ogloszenie!');
+        // return redirect->route('companies.show',['company'=>$company->id])
     }
 
     /**
@@ -183,6 +190,7 @@ class PostsController extends Controller
         // Post::find szuka domyslnie po primary key = id. Mozna zmienic pk na inne pole niz id.
         // $post = Post::findOrFail($id);
         $post-> delete();
+        // if($post){ return redirect}
         return redirect('/mojeogloszenia')->with('success', 'Ogloszenie zostalo usuniete');
     }
 

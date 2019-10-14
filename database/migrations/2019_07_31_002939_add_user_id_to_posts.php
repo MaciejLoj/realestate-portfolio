@@ -15,6 +15,9 @@ class AddUserIdToPosts extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->integer('user_id')->nullable();
+            //$table->foreign('user_id')->references('id')->on('users');
+            //->unsigned
+            //czy jest wymagane?
         });
     }
 

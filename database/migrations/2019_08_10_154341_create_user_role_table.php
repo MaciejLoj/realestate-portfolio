@@ -20,6 +20,7 @@ class CreateUserRoleTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('users_id');
+            // $table->
             $table->integer('roles_id');
             // model + _id
         });

@@ -12,7 +12,6 @@
                 <a href="/ogloszenia" class="btn btn-success" role="button">
                     Ogloszenia sprzedazy</a>
             </p>
-
         </div>
     </div>
 
