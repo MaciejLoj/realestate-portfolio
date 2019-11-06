@@ -9,29 +9,28 @@
           {{-- Formularz kontaktowy - lewo --}}
           <div class="col-lg-8 mb-5" >
 
-            {{-- do zamiany na RealEstateController@send_message -> wysylanie maila poprzez formularz  --}}
-            {{ Form::open(array('action' => 'PostsController@store', 'method' => 'POST' )) }}
+            {{ Form::open(array('action' => 'RealEstateController@send_message', 'method' => 'POST' )) }}
 
                 {{-- Imie oraz nazwisko w jednym wierszu --}}
                 <div class="form-group row">
                     <div class="col-md-6 mb-4 mb-lg-0">
-                        {{ Form::text('customer_name', '', ['class' => 'form-control', 'placeholder' => 'Imię' ] )}}
+                        {{ Form::text('contact_form_name', '', ['class' => 'form-control', 'placeholder' => 'Imię' ] )}}
                     </div>
 
                     <div class="col-md-6">
-                        {{ Form::text('customer_surname', '', ['class' => 'form-control', 'placeholder' => 'Nazwisko']) }}
+                        {{ Form::text('contact_form_surname', '', ['class' => 'form-control', 'placeholder' => 'Nazwisko']) }}
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-12">
-                        {{ Form::text('customer_email', '', ['class' => 'form-control', 'placeholder' => 'Email']) }}
+                        {{ Form::text('contact_form_email', '', ['class' => 'form-control', 'placeholder' => 'Email']) }}
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-12">
-                        {{ Form::textarea('customer_message', '', ['class' => 'form-control', 'placeholder' => 'Twoja wiadomość', 'cols' => '30', 'rows' => '9' ] )}}
+                        {{ Form::textarea('contact_form_message', '', ['class' => 'form-control', 'placeholder' => 'Twoja wiadomość', 'cols' => '30', 'rows' => '9' ] )}}
                     </div>
                 </div>
 
