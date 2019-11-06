@@ -5,40 +5,47 @@
     <div class="site-section bg-light" id="contact-section">
       <div class="container">
         <div class="row">
+
+          {{-- Formularz kontaktowy - lewo --}}
           <div class="col-lg-8 mb-5" >
 
-            {{-- Do dodania formularz - Laravel Collective --}}
+            {{-- do zamiany na RealEstateController@send_message -> wysylanie maila poprzez formularz  --}}
+            {{ Form::open(array('action' => 'PostsController@store', 'method' => 'POST' )) }}
 
-            <form action="#" method="post">
-              <div class="form-group row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="Imię">
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Nazwisko">
-                </div>
-              </div>
+                {{-- Imie oraz nazwisko w jednym wierszu --}}
+                <div class="form-group row">
+                    <div class="col-md-6 mb-4 mb-lg-0">
+                        {{ Form::text('customer_name', '', ['class' => 'form-control', 'placeholder' => 'Imię' ] )}}
+                    </div>
 
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Email">
+                    <div class="col-md-6">
+                        {{ Form::text('customer_surname', '', ['class' => 'form-control', 'placeholder' => 'Nazwisko']) }}
+                    </div>
                 </div>
-              </div>
 
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Twoja wiadomość" cols="30" rows="10"></textarea>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        {{ Form::text('customer_email', '', ['class' => 'form-control', 'placeholder' => 'Email']) }}
+                    </div>
                 </div>
-              </div>
 
-              <div class="form-group row">
-                <div class="col-md-6 mr-auto">
-                  <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Wyślij">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        {{ Form::textarea('customer_message', '', ['class' => 'form-control', 'placeholder' => 'Twoja wiadomość', 'cols' => '30', 'rows' => '9' ] )}}
+                    </div>
                 </div>
-              </div>
 
-            </form>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                    {{ Form::submit('Wyślij', ['class' => 'btn btn-block btn-primary text-white py-3 px-5']) }}
+                    </div>
+                </div>
+
+            {{ Form::close() }}
+
           </div>
+
+          {{-- Dane kontaktowe - panel boczny prawy --}}
           <div class="col-lg-4 ml-auto">
             <div class="bg-white p-3 p-md-5">
               <h3 class="text-black mb-4">Kontakt</h3>
