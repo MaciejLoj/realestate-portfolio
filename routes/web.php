@@ -12,33 +12,32 @@
 */
 
 Route::group(['middleware'=>['verified','roles'],'roles'=>['User', 'Admin', 'Moderator']], function() {
-    Route::get('/mojeogloszenia', 'RealEstateController@myposts'); // OK
+    Route::get('/mojeogloszenia', 'RealEstateController@myposts');
     Route::get('/ogloszenia/dodaj', 'PostsController@create');
     Route::post('/ogloszenia', 'PostsController@store');
-    Route::get('/ogloszenia/{post}/edytuj', 'PostsController@edit'); // widok zmiany ogloszenia
-    Route::patch('/ogloszenia/{post}', 'PostsController@update'); // wyslij zmiane do bazy
-    Route::delete('/ogloszenia/{post}', 'PostsController@destroy'); // OK
-    // do aktualizacji
+    Route::get('/ogloszenia/{post}/edytuj', 'PostsController@edit');
+    Route::patch('/ogloszenia/{post}', 'PostsController@update');
+    Route::delete('/ogloszenia/{post}', 'PostsController@destroy');
     Route::get('/zmianahasla', 'ChangePasswordController@show');
     Route::post('/zmianahasla', 'ChangePasswordController@update');
-
 });
 
 Route::group(['middleware'=>'roles','roles'=>['Admin','Moderator']], function() {
     Route::get('/uzytkownicy', 'AdminController@all_users');
     Route::post('/uzytkownicy', 'AdminController@postAdminRoles')->name('admin.assign');
-    // put/patch zamiast post?
 });
 
 // zmienic auth::routes na polskie
-Auth::routes(['verify' => true]);
 // Auth::routes(['verify' => true]), POTWIERDZENIE REJESTRACJI MAILEM
+Auth::routes(['verify' => true]);
 
-Route::get('/', 'RealEstateController@start'); // OK
-Route::get('/nieruchomosci', 'RealEstateController@showall'); // OK
-Route::get('/ogloszenia', 'PostsController@index'); // OK
-Route::get('/ogloszenia/{post}', 'PostsController@show'); // pokaz ogloszenie
-// panel z wyborem ogloszen
+Route::get('/kontakt', 'RealEstateController@contact_us');
+Route::post('/kontakt', 'RealEstateController@send_message');
+Route::get('/', 'RealEstateController@newstart');
+// Route::get('/', 'RealEstateController@start');
+Route::get('/nieruchomosci', 'RealEstateController@showall');
+Route::get('/ogloszenia', 'PostsController@index');
+Route::get('/ogloszenia/{post}', 'PostsController@show');
 Route::get('/znajdz-ogloszenie', 'PostsController@find_post');
 Route::post('/znajdz-ogloszenie', 'PostsController@find_post_db');
 Route::get('/znajdz-nieruchomosc', 'PostsController@find_realestate');
