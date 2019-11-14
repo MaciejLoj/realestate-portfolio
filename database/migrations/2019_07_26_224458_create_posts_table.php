@@ -15,12 +15,16 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('location');
-            $table->integer('price');
             $table->string('title');
             $table->mediumText('body');
-            $table->boolean('is_real_estate')->nullable();
-            $table->timestamps(); // created_at, updated_at
+            $table->string('location');
+            $table->string('street');
+            $table->unsignedInteger('number_of_rooms');
+            $table->unsignedInteger('area_sqm');
+            $table->unsignedInteger('price');
+            $table->string('market_type');
+            $table->string('house_or_flat');
+            $table->timestamps();
         });
     }
 

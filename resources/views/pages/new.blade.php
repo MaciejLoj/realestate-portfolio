@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 
   <head>
     <title>Realtors &mdash; Website Template by Colorlib</title>
@@ -28,25 +28,23 @@
 
     <div class="site-wrap" id="home-section">
 
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+              <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
         </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
 
-
-
-      <header class="site-navbar site-navbar-target" role="banner">
+        <header class="site-navbar site-navbar-target" role="banner">
 
         <div class="container">
           <div class="row align-items-center position-relative">
 
             <div class="col-3 ">
               <div class="site-logo">
-                  {{-- Logo do dodania --}}
+                  {{-- logo --}}
                 <a href="index.html"></a>
               </div>
             </div>
@@ -54,24 +52,39 @@
             <div class="col-9  text-right">
 
 
-              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+             <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
 
 
+             @if(!Auth::check())
+                  <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                       <li class="active"><a href="/" class="nav-link">Strona główna</a></li>
+                       <li><a href="/ogloszenia" class="nav-link">Ogłoszenia</a></li>
+                       <li><a href="/kontakt" class="nav-link">Kontakt</a></li>
+                       <li><a href="{{ route('login') }}" class="nav-link">Logowanie</a></li>
+                       <li><a href="{{ route('register') }}" class="nav-link">Rejestracja</a></li>
+                    </ul>
+                  </nav>
 
-              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                  <li class="active"><a href="/" class="nav-link">Strona główna</a></li>
-                  <li><a href="/ogloszenia" class="nav-link">Ogłoszenia</a></li>
-                  <li><a href="/kontakt" class="nav-link">Kontakt</a></li>
-                </ul>
-              </nav>
+              @elseif(Auth::user()->roles()->where('name','Admin'))
+                  <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                       <li class="active"><a href="/" class="nav-link">Strona główna</a></li>
+                       <li><a href="/ogloszenia" class="nav-link">Ogłoszenia</a></li>
+                       <li><a href="/kontakt" class="nav-link">Kontakt</a></li>
+                       <li><a href="/uzytkownicy" class="nav-link">Użytkownicy</a></li>
+                    </ul>
+                  </nav>
+              @else
+
+              @endif
             </div>
 
 
           </div>
         </div>
 
-      </header>
+        </header>
 
     <div class="ftco-blocks-cover-1">
       <div class="site-section-cover overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/hero_1.jpg')">
@@ -106,18 +119,19 @@
              <div class="row">
                <div class="col-md-4 form-group">
                  <select name="" id="" class="form-control w-100">
-                   <option value="" disabled selected>Dzielnica</option>
+                   {{-- <option value="" disabled selected>Dzielnica</option> --}}
                    <option value="">Cała Warszawa</option>
                    <option value="">Bemowo</option>
-                   <option value="">Bielany</option>
-                   <option value="">Żoliborz</option>
-                   <option value="">Śródmieście</option>
-                   <option value="">Praga Północ</option>
-                   <option value="">Praga Południe</option>
                    <option value="">Białołęka</option>
-                   <option value="">Targówek</option>
+                   <option value="">Bielany</option>
+                   <option value="">Mokotów</option>
                    <option value="">Ochota</option>
+                   <option value="">Praga Południe</option>
+                   <option value="">Praga Północ</option>
+                   <option value="">Śródmieście</option>
+                   <option value="">Targówek</option>
                    <option value="">Ursynów</option>
+                   <option value="">Żoliborz</option>
                  </select>
                </div>
                <div class="col-md-4 form-group">
@@ -131,7 +145,11 @@
                    </select>
                </div>
                <div class="col-md-4 form-group">
-                 <input type="text" class="form-control" placeholder="Address">
+                 <select name="" id="" class="form-control w-100">
+                     {{-- <option value="" disabled selected>Rynek</option> --}}
+                     <option value="">Rynek wtórny</option>
+                     <option value="">Rynek pierwotny</option>
+                 </select>
                </div>
              </div>
 
@@ -485,7 +503,6 @@
     <script src="js/template/jquery.easing.1.3.js"></script>
     <script src="js/template/bootstrap-datepicker.min.js"></script>
     <script src="js/template/aos.js"></script>
-
     <script src="js/template/main.js"></script>
 
   </body>

@@ -37,6 +37,7 @@ Route::get('/', 'RealEstateController@newstart');
 // Route::get('/', 'RealEstateController@start');
 Route::get('/nieruchomosci', 'RealEstateController@showall');
 Route::get('/ogloszenia', 'PostsController@index');
+Route::get('/noweogloszenia', 'PostsController@show_all_properties');
 Route::get('/ogloszenia/{post}', 'PostsController@show');
 Route::get('/znajdz-ogloszenie', 'PostsController@find_post');
 Route::post('/znajdz-ogloszenie', 'PostsController@find_post_db');

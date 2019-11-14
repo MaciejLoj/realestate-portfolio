@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Role jako pierwsze, inaczej user nie bd mial roli
+        // Role dodajemy jako pierwszą, inaczej user nie będzie mial roli
         $this->call(RoleTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(PostTableSeeder::class);

@@ -10,7 +10,7 @@
         </div>
 
         <div>
-        @if(count($posts)>0)
+        @if($posts)
             <table class="table stripped">
                 <thead class="thead-dark">
                     <tr>
@@ -27,12 +27,13 @@
                     <tr>
                         <div class="row">
                             <div class="col-4">
-                                <td><img class="w-100" src="/storage/cover_images/{{$post->cover_image}}"></td>
+                                <td><img class="w-100" src="/storage/cover_images/{{$post->image}}"></td>
                             </div>
                             <div class="col-8">
                                 <td><a href="/ogloszenia/{{ $post->id }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->created_at }}</td>
-                                <td>{{ $post->user->name }}</td>
+                                <td></td>
+                                {{-- <td>{{ $post->user->name }}</td> --}}
                                 @if($user)
                                     @if(($user->id == $post->user->id) || ($user->roles->where('name', 'Admin')->first()))
                                         <td>
@@ -57,10 +58,8 @@
                     </tr>
                 @endforeach
             </table>
-
-
-            {{-- potrzebne do paginacji --}}
-            {{$posts->links()}}
+            {{-- potrzebne do paginacji
+            {{$posts->links()}} --}}
         @else
                 <p>Brak ogloszen w bazie!</p>
         @endif

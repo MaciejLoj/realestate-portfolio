@@ -23,18 +23,29 @@ class PostsRequest extends FormRequest
      */
     public function rules(){
         return [
-            'title' => 'required|min:5', // 'required|email'
-            'body' => 'required|min:10', // 'required|numeric'
-            'cover_image' => 'image|nullable|max:1999',
+            'title' => 'required|min:5',
+            'body' => 'required|min:10',
+            'location' => 'required',
+            'price' => 'required',
+            'number_of_rooms' => 'required',
+            'area_sqm' => 'required',
+            'price' => 'required',
+            'market_type' => 'required',
+            'house_or_flat' => 'required',
+            'cover_image' => 'required',
         ];
     }
 
     // funkcja do personalizowania wiadomosci
     public function messages(){
         return [
-            'title.required' => 'Pole tytul jest wymagane',
-            'body.required' => 'Pole z trescia ogloszenia jest wymagane',
-
+            'title.required' => 'Tytuł jest wymagany',
+            'body.required' => 'Pole z treścią ogloszenia jest wymagana',
+            'location.required' => 'Pole z lokalizacją jest wymagane',
+            'price.required' => 'Pole z ceną jest wymagane',
+            'area_sqm.required' => 'Pole z powierzchnią jest wymagane',
+            'price.required' => 'Pole z ceną jest wymagane',
+            'cover_image.required' => 'Dodaj zdjęcie obiektu',
         ];
 
     }

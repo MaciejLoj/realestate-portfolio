@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Mail\CustomerMessageMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RealEstateController extends Controller
 {
@@ -19,6 +21,17 @@ class RealEstateController extends Controller
         // $this->middleware(['auth', 'verified']) - potwierdzenie maila
     }
 
+    public function contact_us()
+    {
+        return view('pages.contact');
+    }
+
+    public function send_message()
+    {
+        Mail::to("maciej.loj@gmail.com")->send(new CustomerMessageMail());
+        return redirect('/kontakt')->with('success', 'Dziękujemy za przesłanie wiadomości!');
+    }
+
     public function showall()
     {
         $data = array(
@@ -26,6 +39,11 @@ class RealEstateController extends Controller
             'cities' => ['Bytom', 'Chorzow', 'Katowice']
         );
         return view('pages.realestates')->with($data);
+    }
+    public function newstart()
+    {
+        return view('pages.new_homepage');
+        //return view('pages.new');
     }
 
     public function start()

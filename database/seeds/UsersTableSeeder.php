@@ -13,11 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // ->first, wez pierwszego napotkanego user o name = User
-        // ->get, wez wszystkich
         $role_user = Roles::where('name', 'User')->first();
         $role_admin = Roles::where('name', 'Admin')->first();
-        $role_moderator = Roles::where('name', 'Moderator')->first();
 
         $faker = \Faker\Factory::create();
 
@@ -27,7 +24,6 @@ class UsersTableSeeder extends Seeder
         $user->email = $faker->email;
         $user->password = bcrypt('user');
         $user->save();
-        // bez () jak jest property
         $user->roles()->attach($role_user);
         }
         $admin = new User();
@@ -36,8 +32,6 @@ class UsersTableSeeder extends Seeder
         $admin->password = bcrypt('admin');
         $admin->save();
         $admin->roles()->attach($role_admin);
-
-
 
     }
 

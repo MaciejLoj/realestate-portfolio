@@ -6,24 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    //Table name
+    // Nazwa tabeli w bazie
     protected $table = 'posts';
-    //Primary key
+    // Primary key
     public $primaryKey = 'id';
-    //Timetamps
+    // Timetamps
     public $timestamps = true;
-    // te pole zostana przekazane do nowej instancji utworzonej dzieki komendzie ::create.
-    // dokumentacja eloquent
+
+    /* własności, które będą mogły zostać przekazane do nowej instancji
+    tworzonej dzieki komendzie Post::create */
     protected $fillable = [
-        'location',
-        'price',
         'title',
         'body',
-        'is_real_estate',
+        'location',
+        'street',
+        'number_of_rooms',
+        'area_sqm',
+        'price',
+        'market_type',
+        'house_or_flat',
         'user_id',
         'cover_image',
     ];
-    //one to one relacja. Jeden post moze byc tylko od 1 osoby
+
+    // Relacja one-to-one
     public function user(){
         return $this->belongsTo('App\User');
     }

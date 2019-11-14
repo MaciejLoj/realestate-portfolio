@@ -35,7 +35,8 @@ class PostsController extends Controller
         //$posts = Post::orderBy('created_at', 'desc')->take(1)->get(); shows just 1 result
         //$posts = Post::orderBy('created_at', 'desc')->get();
         $user = Auth::user();
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::orderBy('created_at', 'desc');
+        // ->paginate(10);
         // wszystkie posty uszeregowane data dodania od najnowszego
         return view('posts.index')->with('posts', $posts)->with('user', $user);
     }
@@ -45,6 +46,14 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function show_all_properties()
+    {
+        $posts = Post::orderBy('created_at', 'desc')->paginate(15);
+        return view('posts.new_all_properties')->with('posts', $posts);
+    }
+
+
     public function create()
     {
         return view('posts.create');
@@ -73,26 +82,51 @@ class PostsController extends Controller
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             //tworzymy nazwe pliku, ktora ma byc zapisana ostatecznie w folderze
             //zapisujemy plik w folderze pod stworzona nazwa $fileNameToStore
-            $path=$request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
 
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
+
+
+        // $path = storage_path('public/cover_images');
+        //
+        // if (!file_exists($path)) {
+        //     mkdir($path, 0777, true);
+        // }
+        //
+        // $file = $request->file('file');
+        //
+        // $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        //
+        // $file->move($path, $name);
+        //
+        // return response()->json([
+        //     'name'          => $name,
+        //     'original_name' => $file->getClientOriginalName(),
+        // ]);
+
 
         // w zwiazku z mass assignment musimy dodac pole fillable do modelu Post
         // $new_post = Post::create
         Post::create([
             'location' => request('location'),
             'price' => request('price'),
+            'number_of_rooms' => request('number_of_rooms'),
+            'area_sqm' => request('area_sqm'),
+            'street' => request('street'),
+            'market_type' => request('market_type'),
+            'house_or_flat' => request('house_or_flat'),
             'title' => request('title'),
             'body' => request('body'),
-            'is_real_estate' => request('is_real_estate'),
+            // user_id -> do korekty
             'user_id' => Auth::id(),
             'cover_image' => $fileNameToStore,
         ]);
         // $user = Auth::user();
         // if ($new_post){Mail::to, return redirect}
-        Mail::to(auth()->user()->email)->send(new AddedPostMail());
+
+        //Mail::to(auth()->user()->email)->send(new AddedPostMail());
         // One important thing to note here: if you plan to use create(),
         //  all the attributes that you pass to it have to be listed in the
         //$fillable attribute on the model.
@@ -235,10 +269,16 @@ class PostsController extends Controller
         return view('posts.find_ot');
     }
 
-    public function find_other_db()
+    public function find_other_db(Request $request)
     {
         // wszystkie pozostale rzeczy w bazie maja oznaczenie null w columnie
-        return view('posts.find_ot');
+        //return view('posts.find_ot');
+        $location = $request->input('location');
+        $min_price = $request->input('min_price');
+        $max_price = $request->input('max_price');
+        $found_ot_post = DB::select("SELECT * FROM posts WHERE (is_real_estate IS NULL)
+            AND (location = '$location') AND (price BETWEEN $min_price AND $max_price)");
+        return view('posts.found_ot')->with('posts',$found_ot_post);
     }
 
 }
